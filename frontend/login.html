@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>AMEP - Login</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed": "#bcedd7",
+            "primary": "#00261b",
+            "inverse-surface": "#2f3131",
+            "tertiary-fixed-dim": "#ffb4a8",
+            "secondary": "#446900",
+            "on-error": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f9f9f9",
+            "on-surface": "#1a1c1c",
+            "surface-dim": "#dadada",
+            "secondary-container": "#b2f746",
+            "error": "#ba1a1a",
+            "surface-container-high": "#e8e8e8",
+            "background": "#f9f9f9",
+            "surface-container-low": "#f3f3f4",
+            "error-container": "#ffdad6",
+            "tertiary-fixed": "#ffdad4",
+            "surface": "#f9f9f9",
+            "primary-container": "#0b3d2e",
+            "on-secondary": "#ffffff",
+            "inverse-on-surface": "#f0f1f1",
+            "on-secondary-fixed-variant": "#334f00",
+            "on-secondary-container": "#496f00",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c0c8c3",
+            "tertiary": "#4a0000",
+            "outline": "#717974",
+            "on-secondary-fixed": "#121f00",
+            "on-primary-fixed": "#002116",
+            "on-background": "#1a1c1c",
+            "on-tertiary-fixed": "#410000",
+            "on-tertiary": "#ffffff",
+            "inverse-primary": "#a0d1bc",
+            "secondary-fixed": "#b2f746",
+            "surface-tint": "#396756",
+            "tertiary-container": "#720100",
+            "on-tertiary-container": "#ff725e",
+            "on-surface-variant": "#414944",
+            "primary-fixed-dim": "#a0d1bc",
+            "on-primary-container": "#79a894",
+            "surface-container-highest": "#e2e2e2",
+            "on-error-container": "#93000a",
+            "secondary-fixed-dim": "#98da27",
+            "surface-variant": "#e2e2e2",
+            "on-tertiary-fixed-variant": "#930100",
+            "on-primary-fixed-variant": "#214f3f",
+            "surface-container": "#eeeeee"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Inter"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .bg-textured {
+      background-color: #f9f9f9;
+      background-image: radial-gradient(#0b3d2e 0.5px, transparent 0.5px);
+      background-size: 24px 24px;
+      background-attachment: fixed;
+      opacity: 0.15;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body">
+  <!-- TopNavBar (Shared Component Execution) -->
+  <nav
+    class="bg-white/80 dark:bg-emerald-950/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-gray-100 dark:border-emerald-900/50 shadow-sm">
+    <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto font-inter antialiased">
+      <a class="text-2xl font-black tracking-tighter text-emerald-900 dark:text-emerald-50" href="index.html">
+        AMEP
+      </a>
+
+      <div class="flex items-center gap-4">
+        <a class="text-emerald-900 dark:text-emerald-50 font-medium hover:text-emerald-700 transition-colors transition-all active:scale-95 duration-200"
+          href="signup.html">Sign Up</a>
+        <a class="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-full font-semibold hover:bg-primary transition-all active:scale-95 duration-200 text-center"
+          href="signup.html">
+          Get Started
+        </a>
+      </div>
+    </div>
+  </nav>
+  <!-- Main Content Area -->
+  <main class="flex-grow flex items-center justify-center pt-24 pb-12 px-4 relative">
+    <!-- Background texture overlay -->
+    <div class="bg-textured"></div>
+    <div class="w-full max-w-[480px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] overflow-hidden">
+      <div class="p-8 md:p-12">
+        <!-- Header -->
+        <div class="text-center mb-10">
+          <h1 class="text-3xl font-extrabold text-on-surface tracking-tight mb-2">Welcome Back</h1>
+          <p class="text-on-surface-variant font-medium">Login to continue your personalized learning</p>
+        </div>
+        <!-- Social Login -->
+        <button type="button" onclick="handleGoogleAuth()"
+          class="w-full flex items-center justify-center gap-3 px-6 py-3.5 border border-outline-variant rounded-xl hover:bg-surface-container-low transition-all active:scale-[0.98] duration-200 mb-8">
+          <img alt="Google Logo" class="w-5 h-5"
+            data-alt="Google company logo with multi-colored brand emblem on a transparent background"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM2rS_HTsTtG7UPjee0JBSXa0ChpOQDcbCtAI4A0smOG2BszU-UM0nshAl_FhPaS2k-inXbzZEqqBAg4mBIrYveobTuUxO9YGS2_lhhO_78rG1eH8_NJWLIu-Q7Uk7Y7WjYejkHmbZ3GH6SrRsF_oPfNtikv2x6emJRu6-0ccqjur0HXMIZJNZPJb8xz4H2bnV7N0LjyPWYu8HhGoHGDiDwQGzzWKkHMxdmHKG6_5rDhlPJZ9Y-i3Kp4Q6CHW5CpCJcJD8kD8T8w29" />
+          <span class="font-semibold text-on-surface">Continue with Google</span>
+        </button>
+        <div class="relative mb-8">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-outline-variant"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-4 bg-white text-on-surface-variant font-medium">Or login with email</span>
+          </div>
+        </div>
+        <!-- Login Form -->
+        <div id="login-error"
+          class="hidden bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3 rounded-lg mb-4">
+        </div>
+        <form action="#" class="space-y-6" id="login-form" onsubmit="handleLogin(event)">
+          <div>
+            <label class="block text-sm font-bold text-on-surface mb-2" for="email">Email</label>
+            <div class="relative group">
+              <span
+                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-secondary-fixed-dim transition-colors">mail</span>
+              <input
+                class="w-full pl-12 pr-4 py-3.5 bg-surface-container-low border border-transparent rounded-xl focus:border-secondary-fixed-dim focus:ring-4 focus:ring-secondary-container/20 outline-none transition-all placeholder:text-outline/60 text-on-surface"
+                id="email" placeholder="name@company.com" required="" type="email" />
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-sm font-bold text-on-surface" for="password">Password</label>
+              <a class="text-sm font-semibold text-on-secondary-fixed-variant hover:text-secondary-fixed-dim transition-colors"
+                href="#">Forgot password?</a>
+            </div>
+            <div class="relative group">
+              <span
+                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-secondary-fixed-dim transition-colors">lock</span>
+              <input
+                class="w-full pl-12 pr-4 py-3.5 bg-surface-container-low border border-transparent rounded-xl focus:border-secondary-fixed-dim focus:ring-4 focus:ring-secondary-container/20 outline-none transition-all placeholder:text-outline/60 text-on-surface"
+                id="password" placeholder="••••••••" required="" type="password" />
+            </div>
+          </div>
+          <div class="flex items-center">
+            <input
+              class="w-5 h-5 rounded border-outline-variant text-secondary-fixed-dim focus:ring-secondary-container focus:ring-offset-0 transition-all cursor-pointer"
+              id="remember" type="checkbox" />
+            <label class="ml-3 text-sm font-medium text-on-surface-variant cursor-pointer select-none"
+              for="remember">Remember me for 30 days</label>
+          </div>
+          <button id="login-btn" type="submit"
+            class="w-full bg-secondary-container text-on-secondary-container font-extrabold py-4 rounded-xl shadow-lg shadow-secondary-container/20 hover:bg-secondary-fixed hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-center block">
+            Login
+          </button>
+        </form>
+        <!-- Footer Text -->
+        <p class="text-center mt-8 text-on-surface-variant font-medium">
+          Don't have an account?
+          <a class="text-secondary-fixed-dim font-bold hover:underline transition-all" href="signup.html">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </main>
+  <!-- Footer (Shared Component Execution) -->
+  <footer class="bg-gray-50 dark:bg-emerald-950 w-full py-12 border-t border-gray-200 dark:border-emerald-900">
+    <div
+      class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto text-sm font-inter text-emerald-900 dark:text-emerald-50">
+      <div class="mb-6 md:mb-0">
+        <span class="text-lg font-bold text-emerald-900 dark:text-emerald-50">AMEP</span>
+        <p class="mt-2 text-gray-400 dark:text-emerald-500">© 2024 AMEP AI Education. All rights reserved.</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-6">
+        <a class="text-gray-400 dark:text-emerald-500 hover:underline hover:text-emerald-600 transition-all"
+          href="#">Privacy Policy</a>
+        <a class="text-gray-400 dark:text-emerald-500 hover:underline hover:text-emerald-600 transition-all"
+          href="#">Terms of Service</a>
+        <a class="text-gray-400 dark:text-emerald-500 hover:underline hover:text-emerald-600 transition-all"
+          href="#">Help Center</a>
+        <a class="text-gray-400 dark:text-emerald-500 hover:underline hover:text-emerald-600 transition-all"
+          href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Role-based redirect map ───────────────────────────────────────────────
+    const ROLE_REDIRECT = {
+      student: 'student_dashboard.html',
+      teacher: 'teacher_dashboard.html',
+      parent: 'parent_portal.html',
+    };
+
+    async function handleLogin(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('login-btn');
+      const errorBox = document.getElementById('login-error');
+      errorBox.classList.add('hidden');
+      errorBox.textContent = '';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        showError('Please enter your email and password.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Logging in...';
+
+      try {
+        const res = await fetch('http://127.0.0.1:5000/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || 'Login failed. Please check your credentials.');
+        }
+
+        // ── Save token & user to localStorage ──────────────────────────────
+        localStorage.removeItem('amep_python_progress');
+        localStorage.removeItem('amep_python_synced');
+        localStorage.removeItem('amep_analytics');
+        localStorage.setItem('amep_token', data.token);
+        localStorage.setItem('amep_user', JSON.stringify(data.user));
+
+        // ── Redirect based on role ──────────────────────────────────────────
+        const redirect = ROLE_REDIRECT[data.user.role] || 'student_dashboard.html';
+        window.location.href = redirect;
+
+      } catch (err) {
+        showError(err.message);
+        btn.disabled = false;
+        btn.textContent = 'Login';
+      }
+    }
+
+    async function handleGoogleAuth() {
+      const email = prompt("Simulated Google Auth:\n\nEnter your Google Email (@gmail.com) to continue:");
+      if (!email) return;
+
+      if (!email.toLowerCase().includes('@gmail.com') && !email.toLowerCase().includes('google')) {
+        showError('Please use a valid Google or Gmail address.');
+        return;
+      }
+
+      const btn = document.getElementById('login-btn');
+      if (btn) { btn.disabled = true; btn.textContent = 'Authenticating...'; }
+      document.getElementById('login-error').classList.add('hidden');
+
+      try {
+        const res = await fetch('http://127.0.0.1:5000/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.message || 'Google Auth failed.');
+
+        localStorage.removeItem('amep_python_progress');
+        localStorage.removeItem('amep_python_synced');
+        localStorage.removeItem('amep_analytics');
+        localStorage.setItem('amep_token', data.token);
+        localStorage.setItem('amep_user', JSON.stringify(data.user));
+
+        const redirect = ROLE_REDIRECT[data.user.role] || 'student_dashboard.html';
+        window.location.href = redirect;
+      } catch (err) {
+        showError(err.message);
+        if (btn) { btn.disabled = false; btn.textContent = 'Login'; }
+      }
+    }
+
+    function showError(msg) {
+      const box = document.getElementById('login-error');
+      box.textContent = '⚠️  ' + msg;
+      box.classList.remove('hidden');
+    }
+  </script>
+</body>
+
+</html>

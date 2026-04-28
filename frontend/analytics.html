@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AMEP - Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00261b", "primary-container": "#0b3d2e", "on-primary": "#ffffff",
+                        "on-primary-container": "#79a894", "secondary": "#446900", "secondary-container": "#b2f746",
+                        "on-secondary-container": "#496f00", "secondary-fixed": "#b2f746",
+                        "background": "#f9f9f9", "surface": "#f9f9f9", "on-surface": "#1a1c1c",
+                        "on-surface-variant": "#414944", "outline": "#717974", "outline-variant": "#c0c8c3",
+                        "error": "#ba1a1a", "surface-container": "#eeeeee", "surface-container-low": "#f3f3f4",
+                        "surface-container-high": "#e8e8e8", "primary-fixed": "#bcedd7",
+                        "primary-fixed-dim": "#a0d1bc", "on-primary-fixed": "#002116",
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px" },
+                    fontFamily: { "headline": ["Inter", "sans-serif"], "body": ["Inter", "sans-serif"] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen">
+
+    <!-- SideNav -->
+    <aside
+        class="fixed left-0 top-0 h-screen w-64 z-50 bg-emerald-950 border-r border-emerald-900 shadow-xl flex flex-col py-6 gap-2">
+        <div class="px-6 mb-8">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-emerald-900">
+                    <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">analytics</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white">AMEP Platform</h1>
+                    <p class="text-[10px] text-emerald-300/60 uppercase tracking-widest font-bold">Analytics</p>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 space-y-1 px-2">
+            <a href="student_dashboard.html"
+                class="flex items-center gap-3 px-4 py-3 text-emerald-100/70 hover:bg-emerald-900/50 rounded-lg transition-all">
+                <span class="material-symbols-outlined">dashboard</span><span
+                    class="font-medium text-sm">Dashboard</span></a>
+            <a href="python_course.html"
+                class="flex items-center gap-3 px-4 py-3 text-emerald-100/70 hover:bg-emerald-900/50 rounded-lg transition-all">
+                <span class="material-symbols-outlined">code</span><span class="font-medium text-sm">Python
+                    Course</span></a>
+
+            <a href="ai_assistant.html"
+                class="flex items-center gap-3 px-4 py-3 text-emerald-100/70 hover:bg-emerald-900/50 rounded-lg transition-all">
+                <span class="material-symbols-outlined">smart_toy</span><span class="font-medium text-sm">AI
+                    Assistant</span></a>
+            <a href="analytics.html"
+                class="flex items-center gap-3 px-4 py-3 bg-emerald-900 text-lime-400 rounded-lg transition-all">
+                <span class="material-symbols-outlined">analytics</span><span
+                    class="font-medium text-sm">Analytics</span></a>
+            <a href="resources.html"
+                class="flex items-center gap-3 px-4 py-3 text-emerald-100/70 hover:bg-emerald-900/50 rounded-lg transition-all">
+                <span class="material-symbols-outlined">library_books</span><span
+                    class="font-medium text-sm">Resources</span></a>
+        </nav>
+        <div class="mt-auto space-y-1 px-2">
+            <a href="settings.html"
+                class="flex items-center gap-3 px-4 py-3 text-emerald-100/70 hover:bg-emerald-900/50 rounded-lg transition-all">
+                <span class="material-symbols-outlined">settings</span><span
+                    class="font-medium text-sm">Settings</span></a>
+            <button onclick="amepLogout()"
+                class="w-full flex items-center gap-3 px-4 py-3 text-emerald-100/70 hover:bg-emerald-900/50 rounded-lg transition-all">
+                <span class="material-symbols-outlined">logout</span><span
+                    class="font-medium text-sm">Logout</span></button>
+        </div>
+    </aside>
+
+    <!-- Top Bar -->
+    <header
+        class="fixed top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm flex justify-between items-center h-16 px-6"
+        style="left:16rem;right:0;">
+        <div>
+            <h2 class="text-lg font-black text-primary">Analytics Dashboard</h2>
+            <p class="text-xs text-slate-400" id="last-updated">Loading...</p>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="python_course.html"
+                class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold rounded-xl text-sm hover:scale-105 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-sm"
+                    style="font-variation-settings:'FILL' 1;">play_circle</span>
+                Continue Course
+            </a>
+            <div class="flex items-center gap-2 pl-4 border-l border-gray-200">
+                <span class="text-xs font-bold text-primary user-name-display"></span>
+                <div
+                    class="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-900 user-initials-display">
+                    U</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="ml-64 pt-20 pb-16 px-8 min-h-screen space-y-8">
+
+        <!-- ── KPI Cards ─────────────────────────────────────────────────── -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="kpi-grid"></div>
+
+        <!-- ── Course Progress Hero ──────────────────────────────────────── -->
+        <div class="bg-gradient-to-br from-emerald-900 to-emerald-700 rounded-3xl p-8 text-white relative overflow-hidden"
+            id="progress-hero">
+            <div class="absolute -right-8 -top-8 opacity-5">
+                <span class="material-symbols-outlined" style="font-size:200px;">code</span>
+            </div>
+            <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center">
+                <div class="shrink-0">
+                    <svg width="140" height="140" viewBox="0 0 140 140">
+                        <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="12" />
+                        <circle cx="70" cy="70" r="58" fill="none" stroke="#b2f746" stroke-width="12"
+                            stroke-linecap="round" stroke-dasharray="364.4" id="progress-circle"
+                            stroke-dashoffset="364.4" transform="rotate(-90 70 70)"
+                            style="transition:stroke-dashoffset 1.2s ease" />
+                        <text x="70" y="66" text-anchor="middle" fill="white" font-size="26" font-weight="900"
+                            font-family="Inter" id="circle-pct">0%</text>
+                        <text x="70" y="84" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="11"
+                            font-family="Inter">Complete</text>
+                    </svg>
+                </div>
+                <div class="flex-1 space-y-4">
+                    <h3 class="text-2xl font-black">Basic Python — 7-Day Course</h3>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div>
+                            <p class="text-3xl font-black text-lime-400" id="hero-days">0/7</p>
+                            <p class="text-xs text-white/60 mt-1">Days Done</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-black text-lime-400" id="hero-avg">—</p>
+                            <p class="text-xs text-white/60 mt-1">Avg Score</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-black text-lime-400" id="hero-time">0m</p>
+                            <p class="text-xs text-white/60 mt-1">Time Spent</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 pt-1" id="hero-track"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Charts Row ─────────────────────────────────────────────────── -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Bar Chart -->
+            <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="font-bold text-primary">Quiz Scores — Day by Day</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Hover a bar for details</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 text-[10px] font-bold text-slate-500">
+                        <span class="flex items-center gap-1"><span
+                                class="w-3 h-3 rounded bg-green-500 inline-block"></span>≥80%</span>
+                        <span class="flex items-center gap-1"><span
+                                class="w-3 h-3 rounded bg-orange-400 inline-block"></span>60–79%</span>
+                        <span class="flex items-center gap-1"><span
+                                class="w-3 h-3 rounded bg-red-400 inline-block"></span>&lt;60%</span>
+                        <span class="flex items-center gap-1"><span
+                                class="w-3 h-3 rounded bg-slate-200 inline-block"></span>Pending</span>
+                    </div>
+                </div>
+                <div class="flex items-end gap-2 h-48" id="score-chart"></div>
+                <div class="flex justify-around mt-2" id="score-labels"></div>
+            </div>
+            <!-- Topic Mastery -->
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                <h3 class="font-bold text-primary mb-1">Topic Mastery</h3>
+                <p class="text-xs text-slate-400 mb-5">Score per topic</p>
+                <div class="space-y-4" id="topic-mastery"></div>
+            </div>
+        </div>
+
+        <!-- ── Bottom Row ─────────────────────────────────────────────────── -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Strong + Weak (2/3) -->
+            <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Strong -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-5 border-b border-gray-100 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-green-600"
+                            style="font-variation-settings:'FILL' 1;">verified</span>
+                        <h3 class="font-bold text-primary">Strong Topics</h3>
+                        <span
+                            class="ml-auto text-[10px] font-black bg-green-50 text-green-700 px-2 py-0.5 rounded-full">≥80%</span>
+                    </div>
+                    <div class="divide-y divide-gray-50" id="strong-areas"></div>
+                </div>
+                <!-- Weak -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-5 border-b border-gray-100 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-red-500"
+                            style="font-variation-settings:'FILL' 1;">psychology_alt</span>
+                        <h3 class="font-bold text-primary">Needs Work</h3>
+                        <span
+                            class="ml-auto text-[10px] font-black bg-red-50 text-red-600 px-2 py-0.5 rounded-full">&lt;60%</span>
+                    </div>
+                    <div class="divide-y divide-gray-50" id="weak-areas"></div>
+                </div>
+            </div>
+            <!-- Activity + Achievements (1/3) -->
+            <div class="space-y-6">
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-5 border-b border-gray-100">
+                        <h3 class="font-bold text-primary">Activity Timeline</h3>
+                    </div>
+                    <div class="divide-y divide-gray-50 overflow-y-auto max-h-60" id="activity-feed"></div>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-5 border-b border-gray-100">
+                        <h3 class="font-bold text-primary">Achievements</h3>
+                    </div>
+                    <div class="p-4 flex flex-wrap gap-2" id="achievements"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Smart Recommendations ───────────────────────────────────────── -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <h3 class="font-bold text-primary mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-orange-500"
+                    style="font-variation-settings:'FILL' 1;">tips_and_updates</span>
+                Smart Recommendations
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="recs-grid"></div>
+        </div>
+
+        <!-- Empty state -->
+        <div id="empty-state" class="hidden bg-white rounded-3xl shadow-sm border border-gray-100 p-16 text-center">
+            <div
+                class="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                <span class="material-symbols-outlined text-4xl text-white"
+                    style="font-variation-settings:'FILL' 1;">school</span>
+            </div>
+            <h3 class="text-2xl font-black text-primary mb-2">No Progress Yet</h3>
+            <p class="text-on-surface-variant max-w-sm mx-auto mb-6">
+                Complete days in the Basic Python course to see live analytics here. Data updates automatically after
+                every quiz.
+            </p>
+            <a href="python_course.html"
+                class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-black rounded-2xl hover:scale-105 transition-all shadow-lg">
+                Start Day 1 →
+            </a>
+        </div>
+
+    </main>
+
+    <script src="js/python_course.js"></script>
+    <script>
+            (function () {
+                const progress = getCourseProgress();
+                const completed = getCompletedDays();
+                const avgScore = getOverallScore();
+                const pct = Math.round((completed / 7) * 100);
+
+                // ── Last updated ──────────────────────────────────────────────────────────
+                const allEntries = Object.values(progress).sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
+                const stamp = allEntries[0]
+                    ? 'Last updated ' + new Date(allEntries[0].completedAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+                    : 'No activity yet — start the course!';
+                document.getElementById('last-updated').textContent = stamp;
+
+                // ── Empty state ───────────────────────────────────────────────────────────
+                if (completed === 0) {
+                    document.getElementById('empty-state').classList.remove('hidden');
+                    document.getElementById('progress-hero').style.opacity = '0.5';
+                }
+
+                // ── KPI Cards ─────────────────────────────────────────────────────────────
+                const estMin = PYTHON_COURSE.days.reduce((s, d) => s + (progress[`day_${d.day}`] ? parseInt(d.duration) : 0), 0);
+                const kpis = [
+                    {
+                        icon: 'check_circle', bg: 'bg-green-50', color: 'text-green-600',
+                        label: 'Days Complete', value: `${completed}/7`,
+                        sub: completed === 7 ? '🎉 All done!' : `${7 - completed} remaining`
+                    },
+                    {
+                        icon: 'quiz', bg: 'bg-orange-50', color: avgScore >= 80 ? 'text-green-600' : avgScore >= 60 ? 'text-orange-500' : completed ? 'text-red-500' : 'text-slate-400',
+                        label: 'Avg Quiz Score', value: completed ? avgScore + '%' : '—',
+                        sub: completed ? (avgScore >= 80 ? 'Excellent work!' : avgScore >= 60 ? 'Good, keep going' : 'Needs more practice') : 'No quizzes yet'
+                    },
+                    {
+                        icon: 'schedule', bg: 'bg-blue-50', color: 'text-blue-600',
+                        label: 'Time Invested', value: estMin ? (estMin >= 60 ? `${Math.floor(estMin / 60)}h ${estMin % 60}m` : `${estMin}m`) : '0m',
+                        sub: 'Based on video lengths'
+                    },
+                    {
+                        icon: 'trending_up', bg: 'bg-purple-50', color: 'text-purple-600',
+                        label: 'Completion', value: pct + '%',
+                        sub: pct === 100 ? '🏆 Certificate earned!' : 'Keep it up!'
+                    },
+                ];
+                document.getElementById('kpi-grid').innerHTML = kpis.map(k => `
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
+      <div class="w-10 h-10 ${k.bg} rounded-xl flex items-center justify-center mb-3">
+        <span class="material-symbols-outlined ${k.color}" style="font-variation-settings:'FILL' 1;">${k.icon}</span>
+      </div>
+      <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">${k.label}</p>
+      <p class="text-3xl font-black ${k.color} mt-1 leading-none">${k.value}</p>
+      <p class="text-xs text-slate-500 mt-2">${k.sub}</p>
+    </div>`).join('');
+
+                // ── Circular progress ─────────────────────────────────────────────────────
+                const circ = 364.4;
+                setTimeout(() => {
+                    const el = document.getElementById('progress-circle');
+                    if (el) el.style.strokeDashoffset = circ - (circ * pct / 100);
+                }, 250);
+                document.getElementById('circle-pct').textContent = pct + '%';
+                document.getElementById('hero-days').textContent = `${completed}/7`;
+                document.getElementById('hero-avg').textContent = completed ? avgScore + '%' : '—';
+                document.getElementById('hero-time').textContent = estMin ? (estMin >= 60 ? `${Math.floor(estMin / 60)}h ${estMin % 60}m` : estMin + 'm') : '0m';
+                document.getElementById('hero-track').innerHTML = PYTHON_COURSE.days.map(d => {
+                    const done = !!progress[`day_${d.day}`];
+                    return `<div title="Day ${d.day}: ${d.title}" class="flex-1 h-2.5 rounded-full ${done ? 'bg-lime-400' : 'bg-white/20'}"></div>`;
+                }).join('');
+
+                // ── Bar Chart ─────────────────────────────────────────────────────────────
+                const MAX_H = 160;
+                document.getElementById('score-chart').innerHTML = PYTHON_COURSE.days.map(d => {
+                    const p = progress[`day_${d.day}`];
+                    const done = !!p;
+                    const score = done ? p.scorePercent : 0;
+                    const color = !done ? 'bg-slate-200' : score >= 80 ? 'bg-green-500' : score >= 60 ? 'bg-orange-400' : 'bg-red-400';
+                    const h = done ? Math.max(8, Math.round(score / 100 * MAX_H)) : 8;
+                    return `
+      <div class="flex-1 flex flex-col items-center gap-1 group relative">
+        <span class="text-xs font-black ${done ? (score >= 80 ? 'text-green-600' : score >= 60 ? 'text-orange-500' : 'text-red-500') : 'text-slate-300'}">${done ? score + '%' : '—'}</span>
+        <div class="${color} w-full rounded-t-xl hover:opacity-80 transition-opacity" style="height:${h}px;"></div>
+        <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:flex flex-col bg-slate-800 text-white text-[10px] px-3 py-2 rounded-xl whitespace-nowrap z-20 shadow-lg">
+          <span class="font-black">Day ${d.day}: ${d.title}</span>
+          <span>${done ? score + '% — ' + p.quizScore + '/' + p.totalQuestions + ' correct' : 'Not completed yet'}</span>
+        </div>
+      </div>`;
+                }).join('');
+
+                document.getElementById('score-labels').innerHTML = PYTHON_COURSE.days.map(d =>
+                    `<span class="text-[10px] font-bold text-slate-400">Day&nbsp;${d.day}</span>`
+                ).join('');
+
+                // ── Topic Mastery ─────────────────────────────────────────────────────────
+                const TC = ['bg-emerald-500', 'bg-blue-500', 'bg-purple-500', 'bg-orange-500', 'bg-pink-500', 'bg-indigo-500', 'bg-yellow-500'];
+                document.getElementById('topic-mastery').innerHTML = PYTHON_COURSE.days.map((d, i) => {
+                    const p = progress[`day_${d.day}`];
+                    const score = p ? p.scorePercent : 0;
+                    return `
+      <div>
+        <div class="flex justify-between text-xs font-bold mb-1.5">
+          <span class="text-slate-700 truncate max-w-[65%]">${d.title}</span>
+          <span class="${!p ? 'text-slate-300' : score >= 80 ? 'text-green-600' : 'text-orange-500'}">${p ? score + '%' : '—'}</span>
+        </div>
+        <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div class="${TC[i]} h-full rounded-full transition-all duration-700" style="width:${score}%"></div>
+        </div>
+      </div>`;
+                }).join('');
+
+                // ── Strong / Weak ─────────────────────────────────────────────────────────
+                const ICONS = ['code', 'alt_route', 'functions', 'list', 'data_object', 'folder_open', 'hub'];
+                const strong = PYTHON_COURSE.days.filter(d => { const p = progress[`day_${d.day}`]; return p && p.scorePercent >= 80; });
+                const weak = PYTHON_COURSE.days.filter(d => { const p = progress[`day_${d.day}`]; return p && p.scorePercent < 60; });
+
+                const mkItem = (d, p, type) => `
+    <div class="p-4 flex items-center gap-3 hover:bg-${type === 'strong' ? 'green' : 'red'}-50/40 transition-colors">
+      <div class="w-10 h-10 rounded-xl bg-${type === 'strong' ? 'green' : 'red'}-100 flex items-center justify-center text-${type === 'strong' ? 'green' : 'red'}-600 shrink-0">
+        <span class="material-symbols-outlined text-base">${ICONS[d.day - 1]}</span>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-bold text-primary truncate">Day ${d.day}: ${d.title}</p>
+        <p class="text-xs text-slate-400">${p.quizScore}/${p.totalQuestions} correct</p>
+      </div>
+      <div class="text-right shrink-0">
+        <p class="text-sm font-black text-${type === 'strong' ? 'green' : 'red'}-${type === 'strong' ? '600' : '500'}">${p.scorePercent}%</p>
+        ${type === 'weak' ? `<a href="python_course.html" class="text-[10px] font-bold text-red-400 hover:underline">Retake →</a>` : ''}
+      </div>
+    </div>`;
+
+                document.getElementById('strong-areas').innerHTML = strong.length
+                    ? strong.map(d => mkItem(d, progress[`day_${d.day}`], 'strong')).join('')
+                    : '<div class="p-5 text-center text-xs text-slate-400">Score ≥80% on a quiz to appear here</div>';
+
+                document.getElementById('weak-areas').innerHTML = weak.length
+                    ? weak.map(d => mkItem(d, progress[`day_${d.day}`], 'weak')).join('')
+                    : '<div class="p-5 text-center text-xs text-slate-400">No weak topics yet — great work!</div>';
+
+                // ── Activity Feed ─────────────────────────────────────────────────────────
+                const sorted = Object.entries(progress)
+                    .map(([k, v]) => ({ ...v, dayNum: parseInt(k.replace('day_', '')) }))
+                    .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
+
+                document.getElementById('activity-feed').innerHTML = sorted.length
+                    ? sorted.map(e => {
+                        const d = PYTHON_COURSE.days[e.dayNum - 1];
+                        const dt = new Date(e.completedAt);
+                        const ts = dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' · ' +
+                            dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        const sc = e.scorePercent >= 80 ? 'text-green-600' : e.scorePercent >= 60 ? 'text-orange-500' : 'text-red-500';
+                        return `
+          <div class="p-4 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white text-xs font-black shrink-0">${e.dayNum}</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-bold text-primary truncate">${d.title}</p>
+              <p class="text-[10px] text-slate-400">${ts}</p>
+            </div>
+            <span class="text-sm font-black shrink-0 ${sc}">${e.scorePercent}%</span>
+          </div>`;
+                    }).join('')
+                    : '<div class="p-5 text-center text-xs text-slate-400">No activity yet — start Day 1!</div>';
+
+                // ── Achievements ──────────────────────────────────────────────────────────
+                const badges = [];
+                if (completed >= 1) badges.push({ icon: '🐍', label: 'First Step', tip: 'Completed Day 1' });
+                if (completed >= 3) badges.push({ icon: '⭐', label: 'Halfway There', tip: '3 days done' });
+                if (completed >= 7) badges.push({ icon: '🏆', label: 'Graduate', tip: 'All 7 days!' });
+                if (strong.length >= 3) badges.push({ icon: '🎯', label: 'Sharp Mind', tip: '3+ days ≥80%' });
+                if (!weak.length && completed >= 3) badges.push({ icon: '🔥', label: 'Flawless', tip: 'No day below 60%' });
+                if (avgScore >= 90 && completed >= 3) badges.push({ icon: '💎', label: 'Excellence', tip: 'Avg ≥90%!' });
+                if (completed >= 1) badges.push({ icon: '🚀', label: 'Started!', tip: 'Journey begun' });
+
+                document.getElementById('achievements').innerHTML = badges.length
+                    ? badges.map(b => `
+        <div title="${b.tip}" class="flex flex-col items-center gap-1 p-3 bg-surface-container-low rounded-2xl hover:bg-surface-container transition-colors cursor-default min-w-[4.5rem] text-center">
+          <span class="text-2xl">${b.icon}</span>
+          <span class="text-[10px] font-bold text-slate-600">${b.label}</span>
+        </div>`).join('')
+                    : '<span class="text-xs text-slate-400 p-2">Complete days to earn badges</span>';
+
+                // ── Recommendations ───────────────────────────────────────────────────────
+                const nextDay = completed < 7 ? PYTHON_COURSE.days[completed] : null;
+                const recs = [];
+
+                if (nextDay) {
+                    recs.push({
+                        icon: 'play_circle', color: 'bg-orange-50 text-orange-600',
+                        title: `▶ Start Day ${nextDay.day}`,
+                        body: `"${nextDay.title}" — ${nextDay.duration} video + 5-question quiz.`,
+                        link: 'python_course.html', cta: 'Watch Now'
+                    });
+                } else {
+                    recs.push({
+                        icon: 'check_circle', color: 'bg-green-50 text-green-600',
+                        title: '🎉 Course Complete!',
+                        body: 'All 7 days finished. Review any lesson anytime.',
+                        link: 'python_course.html', cta: 'Review'
+                    });
+                }
+
+                if (weak.length > 0) {
+                    const wd = weak[0]; const wp = progress[`day_${wd.day}`];
+                    recs.push({
+                        icon: 'refresh', color: 'bg-red-50 text-red-600',
+                        title: `Retake Day ${wd.day} Quiz`,
+                        body: `You scored ${wp.scorePercent}% on "${wd.title}". Retaking can improve your average.`,
+                        link: 'python_course.html', cta: 'Retake Now'
+                    });
+                } else {
+                    recs.push({
+                        icon: 'smart_toy', color: 'bg-blue-50 text-blue-600',
+                        title: 'Ask the AI Tutor',
+                        body: 'Have Python questions? AMEP AI gives instant, clear explanations.',
+                        link: 'ai_assistant.html', cta: 'Ask AI'
+                    });
+                }
+
+                recs.push({
+                    icon: avgScore > 0 && avgScore < 80 ? 'menu_book' : 'library_books',
+                    color: 'bg-purple-50 text-purple-600',
+                    title: avgScore > 0 && avgScore < 80 ? 'Rewatch Video Lessons' : 'Explore Resources',
+                    body: avgScore > 0 && avgScore < 80
+                        ? `Your average is ${avgScore}%. Revisiting the videos before retaking quizzes helps.`
+                        : 'Browse all 7 course videos and quizzes on the Resources page.',
+                    link: 'resources.html', cta: 'Browse'
+                });
+
+                document.getElementById('recs-grid').innerHTML = recs.map(r => `
+    <div class="flex flex-col gap-3 p-5 rounded-2xl border border-gray-100 hover:shadow-md transition-all bg-white">
+      <div class="w-10 h-10 rounded-xl ${r.color} flex items-center justify-center">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">${r.icon}</span>
+      </div>
+      <div>
+        <p class="font-bold text-primary text-sm mb-1">${r.title}</p>
+        <p class="text-xs text-slate-500 leading-relaxed">${r.body}</p>
+      </div>
+      <a href="${r.link}" class="mt-auto text-xs font-bold text-emerald-600 hover:translate-x-1 transition-transform flex items-center gap-1">
+        ${r.cta} <span class="material-symbols-outlined text-sm">arrow_forward</span>
+      </a>
+    </div>`).join('');
+
+            })();
+    </script>
+    <script src="js/profile.js"></script>
+    <script src="js/ai_tutor.js"></script>
+</body>
+
+</html>

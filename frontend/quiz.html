@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AMEP - AI Quiz Experience</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f3f3f4",
+                        "on-tertiary-container": "#ff725e",
+                        "surface": "#f9f9f9",
+                        "primary": "#00261b",
+                        "surface-container": "#eeeeee",
+                        "on-secondary-fixed-variant": "#334f00",
+                        "secondary-fixed-dim": "#98da27",
+                        "surface-dim": "#dadada",
+                        "on-primary-fixed-variant": "#214f3f",
+                        "primary-fixed-dim": "#a0d1bc",
+                        "inverse-on-surface": "#f0f1f1",
+                        "on-tertiary-fixed": "#410000",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c0c8c3",
+                        "tertiary-fixed": "#ffdad4",
+                        "on-secondary-fixed": "#121f00",
+                        "on-surface": "#1a1c1c",
+                        "background": "#f9f9f9",
+                        "secondary": "#446900",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1a1c1c",
+                        "on-tertiary-fixed-variant": "#930100",
+                        "surface-container-high": "#e8e8e8",
+                        "secondary-fixed": "#b2f746",
+                        "primary-fixed": "#bcedd7",
+                        "tertiary-container": "#720100",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#396756",
+                        "primary-container": "#0b3d2e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e2e2e2",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#002116",
+                        "on-surface-variant": "#414944",
+                        "inverse-surface": "#2f3131",
+                        "on-primary-container": "#79a894",
+                        "secondary-container": "#b2f746",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#496f00",
+                        "surface-container-highest": "#e2e2e2",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#a0d1bc",
+                        "tertiary": "#4a0000",
+                        "outline": "#717974",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed-dim": "#ffb4a8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .quiz-option-active {
+            @apply border-secondary bg-secondary-container/10 ring-2 ring-secondary ring-offset-2;
+        }
+    </style>
+</head>
+
+<body class="bg-background font-body text-on-background antialiased min-h-screen flex flex-col">
+    <!-- TopNavBar -->
+    <header
+        class="fixed top-0 w-full z-50 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none h-16 flex justify-between items-center px-6">
+        <div class="flex items-center gap-4">
+            <span class="text-xl font-bold text-emerald-900 dark:text-emerald-400 tracking-tight">AMEP</span>
+
+        </div>
+        <div class="flex items-center gap-6">
+            <!-- Timer with Red Alert State (Under 10s logic simulated by static red text for visual prompt) -->
+
+            <div class="flex items-center gap-3">
+                <div class="hidden md:block text-right">
+                    <p class="text-xs font-bold text-on-surface user-name-display">Alex Chen</p>
+                    <p class="text-[10px] text-on-surface-variant user-role-display">Lvl 12 Student</p>
+                </div>
+                <div
+                    class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden shadow-sm active:opacity-80 transition-opacity cursor-pointer">
+                    <img alt="Student Avatar" class="w-full h-full object-cover"
+                        data-alt="portrait of a focused young student with a friendly expression and neutral lighting"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRsvUhWCcE5qMsG2_jvhQdkcND6g_khaKUnASsY9tmRVdwUP_qJygWL4Ben2TYpgDKRJpkDDFYztIw_YIAco6_3Da4gPCOmND7yOAKn35TKqMWJjeCS8fh--DkdcQfX4eWUVJG95iJ45TY46lR__WSUCkeLW-38p_wyRM6_RKJmRNFsQzf5DJaQbBLgkjCdzj1R33SKPK9ZTKHTNto4BbKdgiyihWWINbdE1FblhVX2pAwW3GHgzH8wWoz5f8eszIrzOFmdWLJzC9I" />
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-24 pb-32 px-4 md:px-6 max-w-4xl mx-auto w-full md:ml-64">
+        <!-- Progress Section -->
+        <section class="mb-10 text-center md:text-left">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl font-black text-primary tracking-tight">Question 3 of 10</h2>
+                    <p class="text-on-surface-variant text-sm mt-1">Test your understanding</p>
+                </div>
+                <div
+                    class="flex items-center gap-2 text-primary font-bold text-sm bg-primary-fixed/30 px-3 py-1 rounded-full">
+                    <span class="material-symbols-outlined text-base" data-icon="trending_up">trending_up</span>
+                    <span>80% Success Rate</span>
+                </div>
+            </div>
+            <!-- Custom Progress Bar -->
+            <div class="relative h-3 w-full bg-surface-container-high rounded-full overflow-hidden shadow-inner">
+                <div class="absolute left-0 top-0 h-full bg-secondary-container transition-all duration-500 rounded-full"
+                    style="width: 30%"></div>
+            </div>
+        </section>
+        <!-- Main Quiz Card -->
+        <article
+            class="bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,38,27,0.08)] border border-slate-100 overflow-hidden">
+            <div class="p-8 md:p-12">
+                <!-- Question Label -->
+                <div
+                    class="inline-flex items-center gap-2 text-secondary-fixed-dim bg-primary px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest mb-6">
+                    <span class="material-symbols-outlined text-sm" data-icon="psychology">psychology</span>
+                    Artificial Neural Networks
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold text-primary leading-tight mb-10">
+                    How do neural networks process information?
+                </h1>
+                <!-- Options Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Option 1 -->
+                    <button
+                        class="group flex items-start gap-4 p-5 rounded-2xl border-2 border-slate-100 hover:border-primary-fixed-dim hover:bg-surface-container-low hover:-translate-y-1 hover:shadow-md transition-all text-left">
+                        <span
+                            class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container text-on-surface-variant font-bold group-hover:bg-primary group-hover:text-white transition-colors">A</span>
+                        <div>
+                            <p class="font-semibold text-on-surface">Sequential processing</p>
+                            <p class="text-xs text-on-surface-variant mt-1">Data handled one piece at a time in order.
+                            </p>
+                        </div>
+                    </button>
+                    <!-- Option 2 (Selected State) -->
+                    <button
+                        class="group flex items-start gap-4 p-5 rounded-2xl border-2 border-secondary bg-secondary-container/5 ring-2 ring-secondary ring-offset-2 hover:-translate-y-1 transition-all text-left">
+                        <span
+                            class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-secondary text-white font-bold">B</span>
+                        <div>
+                            <p class="font-bold text-on-surface">Parallel processing through layers</p>
+                            <p class="text-xs text-on-secondary-fixed-variant mt-1">Simultaneous computation across
+                                weighted connections.</p>
+                        </div>
+                        <span class="ml-auto material-symbols-outlined text-secondary" data-icon="check_circle"
+                            style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    </button>
+                    <!-- Option 3 -->
+                    <button
+                        class="group flex items-start gap-4 p-5 rounded-2xl border-2 border-slate-100 hover:border-primary-fixed-dim hover:bg-surface-container-low hover:-translate-y-1 hover:shadow-md transition-all text-left">
+                        <span
+                            class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container text-on-surface-variant font-bold group-hover:bg-primary group-hover:text-white transition-colors">C</span>
+                        <div>
+                            <p class="font-semibold text-on-surface">Direct memory access</p>
+                            <p class="text-xs text-on-surface-variant mt-1">Hardware level interaction without
+                                abstraction.</p>
+                        </div>
+                    </button>
+                    <!-- Option 4 -->
+                    <button
+                        class="group flex items-start gap-4 p-5 rounded-2xl border-2 border-slate-100 hover:border-primary-fixed-dim hover:bg-surface-container-low hover:-translate-y-1 hover:shadow-md transition-all text-left">
+                        <span
+                            class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container text-on-surface-variant font-bold group-hover:bg-primary group-hover:text-white transition-colors">D</span>
+                        <div>
+                            <p class="font-semibold text-on-surface">Single-thread computation</p>
+                            <p class="text-xs text-on-surface-variant mt-1">Execution path restricted to one core only.
+                            </p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <!-- Internal Desktop Controls (Hidden on Mobile) -->
+            <div
+                class="hidden md:flex items-center justify-between px-12 py-8 bg-surface-container-low/50 border-t border-slate-100">
+                <button class="flex items-center gap-2 text-primary font-bold hover:text-secondary transition-colors">
+                    <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+                    Previous
+                </button>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="px-6 py-2.5 rounded-xl font-bold text-on-surface-variant hover:bg-surface-container transition-colors">Skip
+                        Question</button>
+                    <button
+                        class="px-8 py-3 bg-primary-container text-on-primary-container rounded-xl font-bold flex items-center gap-3 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary-container/20">
+                        Next Question
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+        <!-- Ask AI Tutor FAB (Positioned contextually for help) -->
+        <button onclick="toggleAITutor()"
+            class="fixed bottom-24 right-6 md:bottom-10 md:right-10 flex items-center gap-3 px-6 py-4 bg-white border border-outline-variant shadow-2xl rounded-full hover:scale-110 active:scale-90 transition-all z-40 group">
+            <div class="relative">
+                <div class="absolute inset-0 bg-secondary rounded-full animate-ping opacity-20"></div>
+                <span class="material-symbols-outlined text-secondary text-3xl" data-icon="smart_toy"
+                    style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+            </div>
+            <span class="font-bold text-primary text-sm">Ask AI Tutor</span>
+        </button>
+        <!-- AI Tutor Window Popover -->
+        <div id="ai-tutor-window" class="fixed bottom-24 right-6 md:bottom-28 md:right-10 w-[90vw] md:w-96 max-w-sm bg-white rounded-3xl shadow-2xl border border-gray-100 flex flex-col z-[70] origin-bottom-right scale-0 opacity-0 transition-all duration-300">
+            <div class="px-5 py-4 bg-primary text-white rounded-t-3xl flex justify-between items-center shadow-sm">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined animate-pulse text-secondary-fixed">smart_toy</span>
+                    <span class="font-bold text-sm">AI Quiz Tutor</span>
+                </div>
+                <button onclick="toggleAITutor()" class="hover:bg-white/20 p-1 rounded-full transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+            </div>
+            <div id="ai-tutor-chat" class="h-72 overflow-y-auto p-4 space-y-4 bg-surface-container-lowest">
+                <!-- Assistant Default Message -->
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 shadow-sm">
+                        <span class="material-symbols-outlined text-sm">smart_toy</span>
+                    </div>
+                    <div class="bg-surface-container-low p-3 rounded-2xl rounded-tl-sm text-[13px] text-on-surface shadow-sm">
+                        Hi student! Need a gentle hint on neural networks? I can guide you without giving the exact answer away!
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 border-t border-gray-100 bg-white rounded-b-3xl">
+                <form onsubmit="handleAIChatSubmit(event)" class="flex items-center gap-2 relative">
+                    <input id="ai-chat-input" type="text" placeholder="Ask for a hint..." class="w-full bg-surface-container-low border-none rounded-full px-4 py-3 pr-12 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all" autocomplete="off" />
+                    <button type="submit" class="absolute right-1 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-emerald-900 active:scale-95 transition-transform shadow-md">
+                        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">send</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <!-- BottomNavBar (Mobile Layout Only) -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-white/80 backdrop-blur-md border-t border-slate-100 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+        <button
+            class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-emerald-600 transition-colors active:scale-95">
+            <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+            <span class="font-inter text-xs font-bold uppercase tracking-wider mt-1">Previous</span>
+        </button>
+        <button
+            class="flex flex-col items-center justify-center bg-lime-400 text-emerald-950 rounded-xl px-6 py-2 mx-1 shadow-lg active:scale-95 transition-transform">
+            <span class="material-symbols-outlined" data-icon="send"
+                style="font-variation-settings: 'FILL' 1;">send</span>
+            <span class="font-inter text-xs font-bold uppercase tracking-wider mt-1">Submit</span>
+        </button>
+        <button
+            class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-emerald-600 transition-colors active:scale-95">
+            <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+            <span class="font-inter text-xs font-bold uppercase tracking-wider mt-1">Next</span>
+        </button>
+    </nav>
+    <!-- SideNavBar -->
+    <aside
+      class="hidden md:flex bg-white dark:bg-emerald-950 text-emerald-900 dark:text-emerald-50 font-inter text-sm font-medium fixed left-0 top-0 h-full w-64 rounded-r-lg border-r border-gray-100 dark:border-emerald-900/50 shadow-xl flex-col p-4 z-[60]">
+      <div class="flex flex-col items-start gap-1 mb-8 px-4 py-2">
+        <span class="text-lg font-black text-emerald-900 dark:text-lime-400">AMEP</span>
+        <span class="text-[10px] uppercase tracking-widest text-gray-400">AI Education</span>
+      </div>
+      <nav class="flex-1 space-y-1">
+        <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+          href="student_dashboard.html">
+          <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+          Dashboard
+        </a>
+
+        <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+          href="ai_assistant.html">
+          <span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+          AI Assistant
+        </a>
+        <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+          href="resources.html">
+          <span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+          Resources
+        </a>
+
+        <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+          href="analytics.html">
+          <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+          Analytics
+        </a>
+        <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+          href="feedback.html">
+          <span class="material-symbols-outlined" data-icon="feedback">feedback</span>
+          Feedback
+        </a>
+      </nav>
+      <div class="pt-4 border-t border-gray-100 dark:border-emerald-900/50 space-y-1">
+        <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+          href="settings.html">
+          <span class="material-symbols-outlined" data-icon="settings">settings</span>
+          Settings
+        </a>
+        <button onclick="amepLogout()" class="w-full flex items-center gap-3 text-red-500 dark:text-red-400 rounded-lg px-4 py-3 mb-1 hover:bg-red-50 dark:hover:bg-red-900/10 transition-all active:translate-x-1 duration-200">
+          <span class="material-symbols-outlined" data-icon="logout">logout</span>
+          Logout
+        </button>
+      </div>
+    </aside>
+    <script src="js/profile.js"></script>
+    <script>
+        // AI Tutor logic
+        let aiWindowOpen = false;
+        function toggleAITutor() {
+            const win = document.getElementById('ai-tutor-window');
+            aiWindowOpen = !aiWindowOpen;
+            if(aiWindowOpen) {
+                win.classList.remove('scale-0', 'opacity-0', 'pointer-events-none');
+                win.classList.add('scale-100', 'opacity-100');
+                document.getElementById('ai-chat-input').focus();
+            } else {
+                win.classList.remove('scale-100', 'opacity-100');
+                win.classList.add('scale-0', 'opacity-0', 'pointer-events-none');
+            }
+        }
+
+        async function handleAIChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('ai-chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+            
+            input.value = '';
+            const chat = document.getElementById('ai-tutor-chat');
+            
+            // Add User Message
+            chat.innerHTML += `
+                <div class="flex items-start gap-3 justify-end animate-in slide-in-from-right-2 duration-300">
+                    <div class="bg-primary text-white p-3 rounded-2xl rounded-tr-sm text-[13px] shadow-sm max-w-[85%]">
+                        ${text.replace(/</g, "&lt;")}
+                    </div>
+                </div>`;
+            chat.scrollTop = chat.scrollHeight;
+
+            // Add Loading bubble
+            const typingId = 'typing-' + Date.now();
+            chat.innerHTML += `
+                <div id="${typingId}" class="flex items-start gap-3 animate-in fade-in duration-300">
+                    <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 shadow-sm">
+                        <span class="material-symbols-outlined text-sm">smart_toy</span>
+                    </div>
+                    <div class="bg-surface-container-low p-3 rounded-2xl rounded-tl-sm text-[13px] text-on-surface flex items-center gap-1.5 shadow-sm">
+                        <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                        <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                    </div>
+                </div>`;
+            chat.scrollTop = chat.scrollHeight;
+
+            try {
+                const token = localStorage.getItem('amep_token') || 'test-mode';
+                // Context-aware request for the current quiz question
+                const context = "The student is taking a quiz. The question is: 'How do neural networks process information?' The correct answer is B. Give them a gentle, helpful Socratic hint without directly revealing A, B, C, or D.";
+                const res = await fetch('http://127.0.0.1:5000/api/ai/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                    body: JSON.stringify({ question: text, context })
+                });
+                
+                const data = await res.json();
+                document.getElementById(typingId).remove();
+                
+                let reply = data.success ? data.answer : "Sorry, I can't reach my brain box right now! Neural networks are all about nodes communicating with each other simultaneously though...";
+                
+                chat.innerHTML += `
+                <div class="flex items-start gap-3 animate-in slide-in-from-left-2 duration-300">
+                    <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 shadow-sm">
+                        <span class="material-symbols-outlined text-sm">smart_toy</span>
+                    </div>
+                    <div class="bg-surface-container-low p-3 rounded-2xl rounded-tl-sm text-[13px] text-on-surface shadow-sm leading-relaxed max-w-[85%]">
+                        ${reply.replace(/\n/g, '<br/>')}
+                    </div>
+                </div>`;
+                chat.scrollTop = chat.scrollHeight;
+            } catch(e) {
+                console.error(e);
+                document.getElementById(typingId).remove();
+                chat.innerHTML += `
+                <div class="flex items-start gap-3 animate-in fade-in duration-300">
+                    <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-sm text-red-600">error</span>
+                    </div>
+                    <div class="bg-surface-container-low p-3 rounded-2xl rounded-tl-sm text-[13px] text-on-surface shadow-sm max-w-[85%]">
+                        Network error securely bypassed: Think about how neurons physically work—they don't wait in a single file line, they fire together!
+                    </div>
+                </div>`;
+                chat.scrollTop = chat.scrollHeight;
+            }
+        }
+    </script>
+</body>
+
+</html>

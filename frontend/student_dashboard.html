@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>AMEP Student Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed-dim": "#ffb4a8",
+            "primary-fixed-dim": "#a0d1bc",
+            "surface-tint": "#396756",
+            "surface-container-highest": "#e2e2e2",
+            "surface-container": "#eeeeee",
+            "surface": "#f9f9f9",
+            "inverse-surface": "#2f3131",
+            "secondary": "#446900",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#930100",
+            "on-surface-variant": "#414944",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed": "#121f00",
+            "tertiary": "#4a0000",
+            "on-secondary-fixed-variant": "#334f00",
+            "on-tertiary-fixed": "#410000",
+            "on-tertiary-container": "#ff725e",
+            "background": "#f9f9f9",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#bcedd7",
+            "outline": "#717974",
+            "on-error-container": "#93000a",
+            "secondary-fixed-dim": "#98da27",
+            "secondary-container": "#b2f746",
+            "on-primary-fixed-variant": "#214f3f",
+            "tertiary-container": "#720100",
+            "surface-container-high": "#e8e8e8",
+            "tertiary-fixed": "#ffdad4",
+            "on-primary-fixed": "#002116",
+            "primary": "#00261b",
+            "surface-variant": "#e2e2e2",
+            "on-surface": "#1a1c1c",
+            "on-error": "#ffffff",
+            "primary-container": "#0b3d2e",
+            "surface-dim": "#dadada",
+            "surface-container-low": "#f3f3f4",
+            "outline-variant": "#c0c8c3",
+            "on-background": "#1a1c1c",
+            "inverse-on-surface": "#f0f1f1",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#f9f9f9",
+            "inverse-primary": "#a0d1bc",
+            "on-primary-container": "#79a894",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-container": "#496f00",
+            "secondary-fixed": "#b2f746",
+            "error-container": "#ffdad6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Inter"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen">
+  <!-- TopNavBar -->
+  <header
+    class="bg-white/80 dark:bg-emerald-950/80 backdrop-blur-md text-emerald-900 dark:text-emerald-50 font-inter antialiased fixed top-0 w-full z-40 border-b border-gray-100 dark:border-emerald-900/50 shadow-sm">
+    <div class="flex justify-between items-center px-4 md:px-8 h-16 w-full max-w-[1600px] mx-auto">
+      <div class="flex items-center gap-2">
+        <span class="text-xl font-bold tracking-tight text-emerald-900 dark:text-emerald-50">AMEP</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          class="p-2 text-gray-500 dark:text-emerald-300/70 hover:bg-gray-50 dark:hover:bg-emerald-900/30 transition-colors rounded-full active:scale-95 duration-150">
+          <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+        </button>
+        <div class="flex items-center gap-3 pl-4 border-l border-gray-100">
+          <p class="text-xs font-semibold text-emerald-900 user-name-display">Student Name</p>
+          <p class="text-[10px] text-gray-500">Premium Plan</p>
+        </div>
+        <img alt="Student Profile Avatar" class="w-10 h-10 rounded-full border-2 border-emerald-100"
+          data-alt="Close up portrait of a young male student with a friendly expression and dark hair on a clean minimalist background"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbCq-RxDCDBLeNqoOUzTZcLgPDGuZy2T2zaZHkhGaRyBFHZTZTtSiKB706afZbU1QfjCpdQ2RSCUCFj3a4Ov0ymlGdvxRPnunJPV71_ySaOvme0XFTaIGfzJcgPqPwYMwoF1nZ2Qow2QcG0_A2PC0nLIlaOvqzTNAwHk8ukkygyIro5c4R0m7xSLiDSZgvY5uAMqod1025oTotpOnl-ZHSdtiQ13zPleNbZKyf_7IwL_vVPHJM8GJfHBNPsG9ZxScEhUp7mzluE2KL" />
+      </div>
+    </div>
+    </div>
+  </header>
+  <!-- SideNavBar -->
+  <aside
+    class="hidden md:flex bg-white dark:bg-emerald-950 text-emerald-900 dark:text-emerald-50 font-inter text-sm font-medium fixed left-0 top-0 h-full w-64 rounded-r-lg border-r border-gray-100 dark:border-emerald-900/50 shadow-xl flex-col p-4 z-50">
+    <div class="flex flex-col items-start gap-1 mb-8 px-4 py-2">
+      <span class="text-lg font-black text-emerald-900 dark:text-lime-400">AMEP</span>
+      <span class="text-[10px] uppercase tracking-widest text-gray-400">AI Education</span>
+    </div>
+    <nav class="flex-1 space-y-1">
+      <a class="flex items-center gap-3 bg-emerald-50 dark:bg-emerald-900/40 text-emerald-900 dark:text-lime-400 rounded-lg px-4 py-3 mb-1 border-r-4 border-emerald-900 dark:border-lime-400 active:translate-x-1 duration-200"
+        href="student_dashboard.html">
+        <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+        Dashboard
+      </a>
+
+      <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+        href="ai_assistant.html">
+        <span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+        AI Assistant
+      </a>
+      <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+        href="resources.html">
+        <span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+        Resources
+      </a>
+
+      <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+        href="analytics.html">
+        <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+        Analytics
+      </a>
+      <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+        href="feedback.html">
+        <span class="material-symbols-outlined" data-icon="feedback">feedback</span>
+        Feedback
+      </a>
+    </nav>
+    <div class="pt-4 border-t border-gray-100 dark:border-emerald-900/50 space-y-1">
+      <a class="flex items-center gap-3 text-gray-500 dark:text-emerald-300/60 rounded-lg px-4 py-3 mb-1 hover:bg-gray-50 dark:hover:bg-emerald-900/20 hover:text-emerald-900 dark:hover:text-emerald-100 transition-all active:translate-x-1 duration-200"
+        href="settings.html">
+        <span class="material-symbols-outlined" data-icon="settings">settings</span>
+        Settings
+      </a>
+      <a class="flex items-center gap-3 text-red-500 dark:text-red-400 rounded-lg px-4 py-3 mb-1 hover:bg-red-50 dark:hover:bg-red-900/10 transition-all active:translate-x-1 duration-200"
+        href="login.html">
+        <span class="material-symbols-outlined" data-icon="logout">logout</span>
+        Logout
+      </a>
+    </div>
+  </aside>
+  <!-- Main Content -->
+  <main class="md:ml-64 pt-16 min-h-screen">
+    <div class="p-6 md:p-10 max-w-[1400px] mx-auto space-y-10">
+      <!-- Welcome Section -->
+      <section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-black text-primary tracking-tight mb-2">Hello, <span
+              class="user-name-display">Student Name</span> 👋</h1>
+          <p class="text-on-surface-variant font-medium text-lg">Continue your personalized learning journey with AMEP.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+
+          <a class="flex items-center gap-2 px-6 py-3 bg-primary-container text-on-primary-container rounded-xl font-bold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all active:scale-95 text-center"
+            href="ai_assistant.html">
+            <span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+            Ask AI Assistant
+          </a>
+        </div>
+      </section>
+      <!-- Progress Overview - Bento Style -->
+
+
+      <!-- ── Basic Python 7-Day Course Module ─────────────────────────── -->
+      <section id="python-course-section">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-extrabold text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined text-orange-500"
+              style="font-variation-settings:'FILL' 1;">code</span>
+            Active Course
+          </h2>
+          <a href="python_course.html" class="text-sm font-bold text-on-primary-container hover:underline">Open Course
+            →</a>
+        </div>
+
+        <!-- Course Hero Card -->
+        <div
+          class="bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-500 rounded-3xl p-6 md:p-8 text-white shadow-xl shadow-orange-200/50 relative overflow-hidden">
+          <div class="absolute top-0 right-0 opacity-10">
+            <span class="material-symbols-outlined" style="font-size:180px;">code</span>
+          </div>
+          <div class="relative z-10">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div>
+                <span class="text-xs font-bold bg-white/20 px-3 py-1 rounded-full">BEGINNER · 7 DAYS</span>
+                <h3 class="text-2xl md:text-3xl font-black mt-3 mb-1">Basic Python</h3>
+                <p class="text-sm opacity-80 mb-4">Videos + Quizzes for each day. Track your progress and earn badges.
+                </p>
+                <!-- Overall Progress -->
+                <div class="mb-4">
+                  <div class="flex justify-between text-xs font-bold mb-1.5">
+                    <span>Course Progress</span>
+                    <span id="dash-course-pct">0% (0/7 days)</span>
+                  </div>
+                  <div class="h-2.5 bg-white/20 rounded-full overflow-hidden w-64 max-w-full">
+                    <div id="dash-course-bar" class="h-full bg-white rounded-full transition-all duration-700"
+                      style="width:0%"></div>
+                  </div>
+                </div>
+                <a href="python_course.html" id="dash-course-cta"
+                  class="inline-flex items-center gap-2 px-6 py-3 bg-white text-orange-600 font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-md text-sm">
+                  <span class="material-symbols-outlined text-lg">play_circle</span>
+                  Start Learning
+                </a>
+              </div>
+              <!-- Day Pills -->
+              <div class="hidden md:grid grid-cols-4 gap-2" id="dash-day-pills"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day Row (mobile & desktop) -->
+        <div class="grid grid-cols-7 gap-2 mt-4" id="dash-day-grid"></div>
+      </section>
+
+      <!-- Recommended Learning & Recent Activity -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Recommended Learning (Col 1 & 2) -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-extrabold text-primary flex items-center gap-2">
+              <span class="material-symbols-outlined text-secondary-container"
+                data-icon="rocket_launch">rocket_launch</span>
+              Recommended Learning
+            </h2>
+          </div>
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
+            <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-3xl">done_all</span>
+            </div>
+            <h3 class="text-lg font-bold text-primary mb-2">You're all caught up!</h3>
+            <p class="text-sm text-on-surface-variant max-w-[280px]">Keep progressing in the Basic Python course to unlock new personalized recommendations.</p>
+          </div>
+        </div>
+        <!-- Recent Activity (Col 3) -->
+        <div class="space-y-6">
+          <h2 class="text-xl font-extrabold text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined text-on-secondary-container" data-icon="history">history</span>
+            Recent Activity
+          </h2>
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="p-6 space-y-6">
+              <!-- Activity Item 1 -->
+              <div class="flex items-center gap-4 group">
+                <div
+                  class="w-12 h-12 rounded-2xl bg-secondary-container/20 flex items-center justify-center text-on-secondary-container shrink-0">
+                  <span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold text-primary truncate">Grammar Basics</p>
+                  <p class="text-xs text-gray-500">Quiz â€¢ 2 hours ago</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-sm font-black text-green-600">92%</span>
+                </div>
+              </div>
+              <!-- Activity Item 2 -->
+              <div class="flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                  <span class="material-symbols-outlined" data-icon="headphones">headphones</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold text-primary truncate">Listening Level 1</p>
+                  <p class="text-xs text-gray-500">Practice â€¢ Yesterday</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-sm font-black text-blue-600">85%</span>
+                </div>
+              </div>
+              <!-- Activity Item 3 -->
+              <div class="flex items-center gap-4 group">
+                <div
+                  class="w-12 h-12 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary-container shrink-0">
+                  <span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold text-primary truncate">AI Tutoring Session</p>
+                  <p class="text-xs text-gray-500">Conversation â€¢ Oct 24</p>
+                </div>
+                <div class="text-right">
+                  <span class="material-symbols-outlined text-gray-300" data-icon="chevron_right">chevron_right</span>
+                </div>
+              </div>
+            </div>
+            <button
+              class="w-full py-4 bg-gray-50 text-xs font-bold text-gray-500 hover:bg-gray-100 transition-colors uppercase tracking-widest">
+              View Full History
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- BottomNavBar (Mobile Only) -->
+  <nav
+    class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 flex justify-around items-center h-20 px-4 z-40">
+    <button class="flex flex-col items-center gap-1 text-emerald-900 font-semibold">
+      <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+      <span class="text-[10px]">Home</span>
+    </button>
+    <button class="flex flex-col items-center gap-1 -translate-y-4 bg-primary text-white p-4 rounded-full shadow-lg">
+      <span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+    </button>
+    <button class="flex flex-col items-center gap-1 text-gray-400">
+      <span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+      <span class="text-[10px]">Quiz</span>
+    </button>
+    <button class="flex flex-col items-center gap-1 text-gray-400">
+      <span class="material-symbols-outlined" data-icon="person">person</span>
+      <span class="text-[10px]">Profile</span>
+    </button>
+  </nav>
+  <script src="js/python_course.js"></script>
+  <script>
+      // ── Live Python Course Widget on Dashboard ──────────────────────────────
+      (function () {
+        try {
+          const progress = getCourseProgress();
+          const completed = getCompletedDays();
+          const pct = Math.round((completed / 7) * 100);
+
+          // Update progress bar & text
+          const bar = document.getElementById('dash-course-bar');
+          const pctEl = document.getElementById('dash-course-pct');
+          const cta = document.getElementById('dash-course-cta');
+          if (bar) bar.style.width = pct + '%';
+          if (pctEl) pctEl.textContent = `${pct}% (${completed}/7 days)`;
+          if (cta) {
+            if (completed === 0) { cta.innerHTML = '<span class="material-symbols-outlined text-lg">play_circle</span> Start Learning'; }
+            else if (completed === 7) { cta.innerHTML = '<span class="material-symbols-outlined text-lg">check_circle</span> Course Complete!'; }
+            else { cta.innerHTML = `<span class="material-symbols-outlined text-lg">play_circle</span> Continue Day ${completed + 1}`; cta.href = `python_course.html`; }
+          }
+
+          // Build 7-day grid
+          const grid = document.getElementById('dash-day-grid');
+          const pills = document.getElementById('dash-day-pills');
+          if (grid) {
+            grid.innerHTML = PYTHON_COURSE.days.map(d => {
+              const prog = progress[`day_${d.day}`];
+              const done = !!prog;
+              const score = done ? prog.scorePercent : null;
+              return `<a href="python_course.html" title="Day ${d.day}: ${d.title}" 
+                class="flex flex-col items-center gap-1 p-2 rounded-2xl border-2 cursor-pointer hover:scale-105 transition-all
+                       ${done ? 'bg-amber-50 border-orange-300' : 'bg-white border-gray-100 hover:border-orange-200'}">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black
+                  ${done ? 'bg-gradient-to-br from-yellow-400 to-orange-500 text-white' : 'bg-gray-100 text-gray-500'}">
+                  ${done ? '✓' : d.day}
+                </div>
+                <span class="text-[9px] font-bold ${done ? 'text-orange-600' : 'text-gray-400'}">${done ? score + '%' : 'Day ' + d.day}</span>
+              </a>`;
+            }).join('');
+          }
+
+          // Build pills (desktop only)
+          if (pills) {
+            const nextDay = completed < 7 ? PYTHON_COURSE.days[completed] : null;
+            const recentDays = PYTHON_COURSE.days.slice(Math.max(0, completed - 2), completed + 2);
+            pills.innerHTML = recentDays.map(d => {
+              const prog = progress[`day_${d.day}`];
+              const done = !!prog;
+              return `<a href="python_course.html" title="${d.title}"
+                class="flex flex-col items-center gap-2 p-3 bg-white/10 hover:bg-white/20 rounded-2xl transition-all cursor-pointer">
+                <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-sm font-black">
+                  ${done ? '✓' : d.day}
+                </div>
+                <span class="text-[10px] font-bold opacity-90 text-center leading-tight">${d.title.split(':')[0] || d.title}</span>
+                ${done ? `<span class="text-[10px] font-black">${prog.scorePercent}%</span>` : '<span class="text-[10px] opacity-50">Locked</span>'}
+              </a>`;
+            }).join('');
+          }
+        } catch (e) { console.warn('Course widget error:', e); }
+      })();
+  </script>
+  <script src="js/profile.js"></script>
+  <script src="js/ai_tutor.js"></script>
+</body>
+
+</html>

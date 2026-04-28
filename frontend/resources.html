@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>EduAI | Resources Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-container": "#fefcff",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#ffdbcb",
+            "on-tertiary-container": "#fffbff",
+            "inverse-on-surface": "#eff1f3",
+            "surface-variant": "#e0e3e5",
+            "on-secondary-container": "#334e83",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#001a42",
+            "secondary-container": "#a6c1fd",
+            "secondary-fixed-dim": "#aec6ff",
+            "primary-container": "#006fef",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#001a42",
+            "tertiary-container": "#c35200",
+            "on-background": "#191c1e",
+            "surface": "#f7f9fb",
+            "outline-variant": "#c1c6d7",
+            "on-tertiary": "#ffffff",
+            "on-surface": "#191c1e",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#e6e8ea",
+            "surface-container-highest": "#e0e3e5",
+            "primary-fixed-dim": "#aec6ff",
+            "background": "#f7f9fb",
+            "primary": "#10b981", /* Overridden to Emerald/Green for task */
+            "error": "#ba1a1a",
+            "tertiary": "#9b4000",
+            "outline": "#727786",
+            "surface-dim": "#d8dadc",
+            "inverse-primary": "#aec6ff",
+            "primary-fixed": "#d8e2ff",
+            "on-primary-fixed-variant": "#004396",
+            "error-container": "#ffdad6",
+            "secondary": "#435e94",
+            "inverse-surface": "#2d3133",
+            "surface-container": "#eceef0",
+            "on-surface-variant": "#414754",
+            "tertiary-fixed-dim": "#ffb692",
+            "surface-bright": "#f7f9fb",
+            "secondary-fixed": "#d8e2ff",
+            "on-tertiary-fixed-variant": "#793000",
+            "on-secondary-fixed-variant": "#2a467a",
+            "surface-container-low": "#f2f4f6",
+            "on-tertiary-fixed": "#341100",
+            "on-primary": "#ffffff",
+            "surface-tint": "#10b981"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Inter"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        },
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f9fb;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .dot-grid {
+      background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+
+<body class="text-on-background dot-grid min-h-screen">
+  <!-- TopNavBar -->
+  <nav
+    class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm flex justify-between items-center px-8 py-4 font-['Inter'] font-medium tracking-tight">
+    <a href="index.html" class="text-2xl font-bold text-emerald-700 tracking-tighter">EduAI</a>
+
+    <div class="flex items-center space-x-4">
+      <div class="relative hidden sm:block">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+        <input
+          class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-emerald-500/20 w-64"
+          placeholder="Search resources..." type="text" />
+      </div>
+      <div class="hidden sm:block text-right">
+        <p class="text-xs font-bold text-slate-800 user-name-display">Alex Chen</p>
+      </div>
+      <div
+        class="w-10 h-10 rounded-full border-2 border-emerald-100 shadow-sm flex items-center justify-center text-xs font-bold text-emerald-900 user-initials-display">
+        U
+      </div>
+    </div>
+  </nav>
+  <!-- SideNavBar -->
+  <aside
+    class="hidden lg:flex flex-col py-8 h-screen w-64 fixed left-0 top-0 bg-white shadow-xl shadow-slate-200/50 rounded-r-[3rem] z-40 mt-20">
+    <nav class="flex-1 space-y-2 px-4">
+      <a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-slate-50 hover:translate-x-1 transition-all rounded-full group"
+        href="student_dashboard.html">
+        <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">school</span>
+        <span class="font-['Inter'] text-sm font-semibold">Dashboard</span>
+      </a>
+
+      <a class="flex items-center space-x-3 px-4 py-3 bg-emerald-50 text-emerald-700 rounded-full group"
+        href="resources.html">
+        <span class="material-symbols-outlined">assignment</span>
+        <span class="font-['Inter'] text-sm font-semibold">Resources</span>
+      </a>
+      <a class="flex items-center space-x-3 px-4 py-3 text-slate-400 hover:text-emerald-500 transition-colors group"
+        href="feedback.html">
+        <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">feedback</span>
+        <span class="font-['Inter'] text-sm font-semibold">Feedback</span>
+      </a>
+    </nav>
+    <div class="px-6 py-6 border-t border-slate-50">
+      <div class="space-y-2">
+        <button onclick="amepLogout()"
+          class="flex items-center space-x-3 px-4 py-2 text-slate-400 hover:text-emerald-600 transition-colors">
+          <span class="material-symbols-outlined text-lg">logout</span>
+          <span class="text-xs font-bold">Logout</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+  <!-- Main Content Area -->
+  <main class="pt-24 pb-12 lg:ml-64 px-6 md:px-12">
+    <!-- Hero Header -->
+    <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-2">Resources</h1>
+        <p class="text-slate-500 max-w-lg">Access a comprehensive library of AI research, learning materials, and
+          practical guides curated by our expert educators.</p>
+      </div>
+      <div class="flex items-center -space-x-3">
+        <div
+          class="w-10 h-10 rounded-full border-4 border-surface bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs font-bold ring-2 ring-emerald-500/10">
+          JD</div>
+        <div
+          class="w-10 h-10 rounded-full border-4 border-surface bg-blue-100 flex items-center justify-center text-blue-700 text-xs font-bold ring-2 ring-blue-500/10">
+          SK</div>
+        <div
+          class="w-10 h-10 rounded-full border-4 border-surface bg-orange-100 flex items-center justify-center text-orange-700 text-xs font-bold ring-2 ring-orange-500/10">
+          ML</div>
+        <div
+          class="w-10 h-10 rounded-full border-4 border-surface bg-slate-200 flex items-center justify-center text-slate-600 text-xs font-bold ring-2 ring-slate-400/10">
+          +12</div>
+        <span class="pl-6 text-xs font-bold text-slate-400 uppercase tracking-widest">Active Learners</span>
+      </div>
+    </header>
+
+    <!-- ── Basic Python 7-Day Course (Videos & Quizzes) ──────────────────── -->
+    <section class="mb-16">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="text-2xl">🐍</span> Basic Python — 7-Day Course
+          </h2>
+          <p class="text-sm text-slate-500 mt-1">Video lessons and quizzes for each day. Your progress is saved
+            automatically.</p>
+        </div>
+        <a href="python_course.html"
+          class="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-orange-500 text-white font-bold rounded-full text-sm hover:bg-orange-600 transition-all hover:scale-105 active:scale-95 shadow-sm">
+          Open Course <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+
+      <!-- Tabs: Videos | Quizzes -->
+      <div class="flex gap-2 mb-6" id="py-tabs">
+        <button onclick="switchTab('videos')" id="tab-videos"
+          class="px-5 py-2 rounded-full text-sm font-bold bg-slate-900 text-white transition-all">
+          <span class="material-symbols-outlined text-sm align-middle">play_circle</span> Videos (7)
+        </button>
+        <button onclick="switchTab('quizzes')" id="tab-quizzes"
+          class="px-5 py-2 rounded-full text-sm font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+          <span class="material-symbols-outlined text-sm align-middle">quiz</span> Quizzes (7)
+        </button>
+      </div>
+
+      <!-- Videos Grid -->
+      <div id="py-videos" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+
+      <!-- Quizzes Grid -->
+      <div id="py-quizzes" class="hidden grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Featured Resources (Top Row) -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      <!-- Card 1 -->
+      <div
+        class="bg-white p-8 rounded-xl shadow-lg shadow-slate-200/50 hover:shadow-xl transition-all border border-transparent hover:border-emerald-100 group rotate-[-1deg]">
+        <div
+          class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-emerald-600 text-3xl">description</span>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">AI Cheat Sheets</h3>
+        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Quick reference guides for key AI concepts, algorithms,
+          and syntax for popular frameworks.</p>
+        <a href="assets/Python_Handwritten_Notes.pdf" download="Python Handwritten Notes.pdf" class="flex items-center space-x-2 text-emerald-600 font-bold hover:translate-x-2 transition-transform">
+          <span>View/Download</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <!-- Card 2 -->
+      <div
+        class="bg-white p-8 rounded-xl shadow-lg shadow-slate-200/50 hover:shadow-xl transition-all border border-transparent hover:border-emerald-100 group">
+        <div
+          class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-blue-600 text-3xl">picture_as_pdf</span>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">PDF Notes</h3>
+        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Detailed lecture notes and deep-dive technical documents
+          for academic and professional study.</p>
+        <a href="assets/Python_Classes_Handwritten_Notes.pdf" download="01. Python Classes Handwritten Notes.pdf" class="flex items-center space-x-2 text-emerald-600 font-bold hover:translate-x-2 transition-transform">
+          <span>View/Download</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+      <!-- Card 3 -->
+      <div
+        class="bg-white p-8 rounded-xl shadow-lg shadow-slate-200/50 hover:shadow-xl transition-all border border-transparent hover:border-emerald-100 group rotate-[1deg]">
+        <div
+          class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-orange-600 text-3xl">play_circle</span>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Video Tutorials</h3>
+        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Step-by-step video guides covering everything from basics
+          to advanced AI implementation.</p>
+        <a href="python_course.html" class="flex items-center space-x-2 text-emerald-600 font-bold hover:translate-x-2 transition-transform">
+          <span>View Course</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+    </section>
+    <!-- Two Column Layout: Categories & Recently Viewed -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+      <!-- Categories Section (Left 2/3) -->
+      <section class="lg:col-span-2">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-bold text-slate-900">Resource Categories</h2>
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">3 Main Tracks</span>
+        </div>
+        <div class="space-y-4">
+          <!-- Category 1 -->
+          <div class="bg-white rounded-lg overflow-hidden border border-slate-100">
+            <button
+              class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-slate-50 transition-colors group">
+              <div class="flex items-center space-x-4">
+                <span
+                  class="material-symbols-outlined text-slate-400 group-hover:text-emerald-500 transition-colors">hub</span>
+                <span class="font-bold text-slate-700">Neural Networks</span>
+              </div>
+              <span class="material-symbols-outlined text-slate-400">expand_more</span>
+            </button>
+            <div class="px-6 py-4 bg-slate-50/50 flex flex-wrap gap-3">
+              <span
+                class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600">Perceptrons
+                Guide</span>
+              <span
+                class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600">Backpropagation
+                PDF</span>
+              <span
+                class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600">CNN
+                Visualizer</span>
+            </div>
+          </div>
+          <!-- Category 2 -->
+          <div class="bg-white rounded-lg overflow-hidden border border-slate-100">
+            <button
+              class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-slate-50 transition-colors group">
+              <div class="flex items-center space-x-4">
+                <span
+                  class="material-symbols-outlined text-slate-400 group-hover:text-emerald-500 transition-colors">layers</span>
+                <span class="font-bold text-slate-700">Deep Learning</span>
+              </div>
+              <span class="material-symbols-outlined text-slate-400 rotate-180">expand_more</span>
+            </button>
+            <div class="px-6 py-4 bg-slate-50/50 flex flex-wrap gap-3">
+              <span
+                class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600">Optimizers
+                Handbook</span>
+              <span
+                class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600">Gradient
+                Descent Lab</span>
+            </div>
+          </div>
+          <!-- Category 3 -->
+          <div class="bg-white rounded-lg overflow-hidden border border-slate-100">
+            <button
+              class="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-slate-50 transition-colors group">
+              <div class="flex items-center space-x-4">
+                <span
+                  class="material-symbols-outlined text-slate-400 group-hover:text-emerald-500 transition-colors">auto_awesome</span>
+                <span class="font-bold text-slate-700">Transformers</span>
+              </div>
+              <span class="material-symbols-outlined text-slate-400">expand_more</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Recently Viewed Section (Right 1/3) -->
+      <section>
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-bold text-slate-900">Recent</h2>
+          <button class="text-xs font-bold text-slate-400 hover:text-emerald-600 transition-colors">Clear</button>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-50 space-y-6">
+          <div class="flex items-center space-x-4 group cursor-pointer">
+            <div
+              class="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-emerald-50 transition-colors">
+              <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-600">article</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-bold text-slate-800 truncate">GPT-4 Architecture Paper</p>
+              <p class="text-xs text-slate-400">Viewed 2h ago</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4 group cursor-pointer">
+            <div
+              class="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-emerald-50 transition-colors">
+              <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-600">movie</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-bold text-slate-800 truncate">Introduction to PyTorch</p>
+              <p class="text-xs text-slate-400">Viewed 5h ago</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4 group cursor-pointer">
+            <div
+              class="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-emerald-50 transition-colors">
+              <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-600">description</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-bold text-slate-800 truncate">Math for ML Cheat Sheet</p>
+              <p class="text-xs text-slate-400">Viewed yesterday</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4 group cursor-pointer">
+            <div
+              class="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-emerald-50 transition-colors">
+              <span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-600">article</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-bold text-slate-800 truncate">Attention is All You Need</p>
+              <p class="text-xs text-slate-400">Viewed 2 days ago</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Resource List Table -->
+    <section class="bg-white rounded-xl shadow-lg shadow-slate-200/40 border border-slate-50 overflow-hidden">
+      <!-- Table Header / Controls -->
+      <div class="p-8 border-b border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <h2 class="text-2xl font-bold text-slate-900">All Resources</h2>
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+            <input
+              class="pl-9 pr-4 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 w-48"
+              placeholder="Filter by title..." type="text" />
+          </div>
+          <select class="bg-slate-50 border-none rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 pr-8">
+            <option>Difficulty: All</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </div>
+      </div>
+      <!-- Responsive Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="bg-slate-50/50">
+              <th class="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Title</th>
+              <th class="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Type</th>
+              <th class="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Difficulty</th>
+              <th class="px-8 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-50">
+            <tr class="hover:bg-slate-50 transition-colors group">
+              <td class="px-8 py-5">
+                <div class="flex items-center space-x-3">
+                  <button class="text-slate-300 hover:text-emerald-500 transition-colors">
+                    <span class="material-symbols-outlined text-xl"
+                      style="font-variation-settings: 'FILL' 0;">bookmark</span>
+                  </button>
+                  <span class="font-semibold text-slate-700">Reinforcement Learning Basics</span>
+                </div>
+              </td>
+              <td class="px-8 py-5">
+                <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold">PDF</span>
+              </td>
+              <td class="px-8 py-5">
+                <div class="flex items-center space-x-1">
+                  <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                  <span class="text-sm text-slate-600">Beginner</span>
+                </div>
+              </td>
+              <td class="px-8 py-5 text-right">
+                <button
+                  class="p-2 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-600 hover:text-white transition-all scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100">
+                  <span class="material-symbols-outlined text-lg">download</span>
+                </button>
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors group">
+              <td class="px-8 py-5">
+                <div class="flex items-center space-x-3">
+                  <button class="text-emerald-500">
+                    <span class="material-symbols-outlined text-xl"
+                      style="font-variation-settings: 'FILL' 1;">bookmark</span>
+                  </button>
+                  <span class="font-semibold text-slate-700">GANs Architecture Walkthrough</span>
+                </div>
+              </td>
+              <td class="px-8 py-5">
+                <span class="px-3 py-1 bg-orange-50 text-orange-600 rounded-full text-xs font-bold">Video</span>
+              </td>
+              <td class="px-8 py-5">
+                <div class="flex items-center space-x-1">
+                  <div class="w-2 h-2 rounded-full bg-orange-500"></div>
+                  <span class="text-sm text-slate-600">Intermediate</span>
+                </div>
+              </td>
+              <td class="px-8 py-5 text-right">
+                <button
+                  class="p-2 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-600 hover:text-white transition-all scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100">
+                  <span class="material-symbols-outlined text-lg">play_arrow</span>
+                </button>
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors group">
+              <td class="px-8 py-5">
+                <div class="flex items-center space-x-3">
+                  <button class="text-slate-300 hover:text-emerald-500 transition-colors">
+                    <span class="material-symbols-outlined text-xl"
+                      style="font-variation-settings: 'FILL' 0;">bookmark</span>
+                  </button>
+                  <span class="font-semibold text-slate-700">Fine-tuning LLMs on Custom Data</span>
+                </div>
+              </td>
+              <td class="px-8 py-5">
+                <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold">PDF</span>
+              </td>
+              <td class="px-8 py-5">
+                <div class="flex items-center space-x-1">
+                  <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                  <span class="text-sm text-slate-600">Advanced</span>
+                </div>
+              </td>
+              <td class="px-8 py-5 text-right">
+                <button
+                  class="p-2 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-600 hover:text-white transition-all scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100">
+                  <span class="material-symbols-outlined text-lg">download</span>
+                </button>
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors group">
+              <td class="px-8 py-5">
+                <div class="flex items-center space-x-3">
+                  <button class="text-slate-300 hover:text-emerald-500 transition-colors">
+                    <span class="material-symbols-outlined text-xl"
+                      style="font-variation-settings: 'FILL' 0;">bookmark</span>
+                  </button>
+                  <span class="font-semibold text-slate-700">Numpy for Deep Learning</span>
+                </div>
+              </td>
+              <td class="px-8 py-5">
+                <span class="px-3 py-1 bg-orange-50 text-orange-600 rounded-full text-xs font-bold">Video</span>
+              </td>
+              <td class="px-8 py-5">
+                <div class="flex items-center space-x-1">
+                  <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                  <span class="text-sm text-slate-600">Beginner</span>
+                </div>
+              </td>
+              <td class="px-8 py-5 text-right">
+                <button
+                  class="p-2 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-600 hover:text-white transition-all scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100">
+                  <span class="material-symbols-outlined text-lg">play_arrow</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Table Footer -->
+      <div class="px-8 py-4 bg-slate-50/30 flex items-center justify-between">
+        <p class="text-xs font-bold text-slate-400">Showing 4 of 128 resources</p>
+        <div class="flex items-center space-x-2">
+          <button class="p-2 text-slate-400 hover:text-emerald-600 transition-colors disabled:opacity-30" disabled="">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <button class="w-8 h-8 rounded-full bg-emerald-600 text-white text-xs font-bold">1</button>
+          <button class="w-8 h-8 rounded-full text-slate-400 text-xs font-bold hover:bg-slate-100">2</button>
+          <button class="w-8 h-8 rounded-full text-slate-400 text-xs font-bold hover:bg-slate-100">3</button>
+          <button class="p-2 text-slate-400 hover:text-emerald-600 transition-colors">
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- Signature Component: Sticky Note -->
+    <div
+      class="fixed bottom-12 right-12 bg-tertiary-fixed p-6 rounded-lg shadow-xl shadow-slate-200/50 -rotate-3 border-b-4 border-orange-200 w-48 hidden xl:block">
+      <div class="flex items-center space-x-2 mb-2">
+        <span class="material-symbols-outlined text-orange-600 text-sm">tips_and_updates</span>
+        <span class="text-[0.7rem] font-bold text-orange-700 uppercase tracking-widest">Pro Tip</span>
+      </div>
+      <p class="text-sm font-medium text-orange-900 leading-tight italic">Try the "AI Tutor" to get personalized
+        resource recommendations based on your current course progress!</p>
+    </div>
+  </main>
+  <!-- Mobile Navigation Overlay (Visible only on small screens) -->
+  <div
+    class="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md px-6 py-4 flex items-center justify-between shadow-[0_-10px_20px_rgba(0,0,0,0.05)] z-50">
+    <a class="flex flex-col items-center space-y-1 text-slate-400" href="#">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class="text-[10px] font-bold">Dashboard</span>
+    </a>
+    <a class="flex flex-col items-center space-y-1 text-slate-400" href="#">
+      <span class="material-symbols-outlined">school</span>
+      <span class="text-[10px] font-bold">Courses</span>
+    </a>
+    <a class="flex flex-col items-center space-y-1 text-emerald-600" href="#">
+      <span class="material-symbols-outlined">folder</span>
+      <span class="text-[10px] font-bold">Resources</span>
+    </a>
+
+    <a class="flex flex-col items-center space-y-1 text-slate-400" href="#">
+      <span class="material-symbols-outlined">person</span>
+      <span class="text-[10px] font-bold">Profile</span>
+    </a>
+  </div>
+  <script src="js/python_course.js"></script>
+  <script>
+    // ── Build Python Course Cards on Resources Page ─────────────────────────
+    const DIFF_COLORS = ['bg-green-100 text-green-700', 'bg-yellow-100 text-yellow-700', 'bg-orange-100 text-orange-700',
+      'bg-blue-100 text-blue-700', 'bg-purple-100 text-purple-700', 'bg-red-100 text-red-700', 'bg-slate-100 text-slate-700'];
+
+    function buildResourceCards() {
+      const progress = getCourseProgress();
+      const videosGrid = document.getElementById('py-videos');
+      const quizzesGrid = document.getElementById('py-quizzes');
+      if (!videosGrid || !quizzesGrid) return;
+
+      videosGrid.innerHTML = PYTHON_COURSE.days.map(d => {
+        const prog = progress[`day_${d.day}`];
+        const done = !!prog;
+        return `
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-lg transition-all overflow-hidden group">
+              <!-- Thumbnail -->
+              <div class="relative bg-slate-900 aspect-video overflow-hidden">
+                <img src="https://img.youtube.com/vi/${d.videoId}/mqdefault.jpg"
+                  alt="Day ${d.day} thumbnail" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"/>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <a href="python_course.html" class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center tooltip-hover shadow-lg hover:scale-110 transition-all">
+                    <span class="material-symbols-outlined text-white" style="font-variation-settings:'FILL' 1;">play_arrow</span>
+                  </a>
+                </div>
+                <div class="absolute top-2 left-2">
+                  <span class="px-2 py-0.5 bg-black/60 text-white text-[10px] font-bold rounded">Day ${d.day}</span>
+                </div>
+                ${done ? `<div class="absolute top-2 right-2">
+                  <span class="px-2 py-0.5 bg-green-500 text-white text-[10px] font-bold rounded-full">✓ Done</span>
+                </div>` : ''}
+                <div class="absolute bottom-2 right-2">
+                  <span class="px-2 py-0.5 bg-black/60 text-white text-[10px] font-bold rounded">${d.duration}</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-slate-800 mb-1">Day ${d.day}: ${d.title}</h3>
+                <p class="text-xs text-slate-500 mb-3 line-clamp-2">${d.description}</p>
+                <div class="flex flex-wrap gap-1 mb-3">
+                  ${d.topics.slice(0, 2).map((t, i) => `<span class="px-2 py-0.5 ${DIFF_COLORS[d.day - 1]} text-[10px] font-semibold rounded-full">${t}</span>`).join('')}
+                </div>
+                <a href="python_course.html" class="flex items-center gap-2 text-emerald-600 font-bold text-sm hover:translate-x-1 transition-transform">
+                  ${done ? 'Rewatch Lesson' : 'Watch Video'} <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+              </div>
+            </div>`;
+      }).join('');
+
+      quizzesGrid.innerHTML = PYTHON_COURSE.days.map(d => {
+        const prog = progress[`day_${d.day}`];
+        const done = !!prog;
+        const score = done ? prog.scorePercent : null;
+        const scoreColor = score !== null ? (score >= 80 ? 'text-green-600' : score >= 60 ? 'text-orange-500' : 'text-red-500') : 'text-slate-400';
+        return `
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-lg transition-all p-6 group">
+              <div class="flex items-start justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white font-black text-lg shrink-0">
+                  ${done ? '✓' : d.day}
+                </div>
+                ${done ? `<div class="text-right">
+                  <p class="text-2xl font-black ${scoreColor}">${score}%</p>
+                  <p class="text-[10px] text-slate-400">${prog.quizScore}/${prog.totalQuestions} correct</p>
+                </div>` : `<span class="px-2 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold rounded-full">Not taken</span>`}
+              </div>
+              <h3 class="font-bold text-slate-800 mb-1">Day ${d.day} Quiz</h3>
+              <p class="text-xs text-slate-500 mb-1">${d.title}</p>
+              <p class="text-xs text-slate-400 mb-4">5 questions · Multiple choice</p>
+              ${done && score >= 80 ? '<div class="flex items-center gap-1 mb-4"><span class="text-yellow-500">★★★★★</span><span class="text-xs font-bold text-slate-500 ml-1">Excellent!</span></div>' : ''}
+              <a href="python_course.html" class="flex items-center gap-2 text-emerald-600 font-bold text-sm hover:translate-x-1 transition-transform">
+                ${done ? 'Retake Quiz' : 'Take Quiz'} <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>`;
+      }).join('');
+    }
+
+    function switchTab(tab) {
+      const videos = document.getElementById('py-videos');
+      const quizzes = document.getElementById('py-quizzes');
+      const tabV = document.getElementById('tab-videos');
+      const tabQ = document.getElementById('tab-quizzes');
+      if (tab === 'videos') {
+        videos.classList.remove('hidden');
+        quizzes.classList.add('hidden');
+        tabV.className = 'px-5 py-2 rounded-full text-sm font-bold bg-slate-900 text-white transition-all';
+        tabQ.className = 'px-5 py-2 rounded-full text-sm font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all';
+      } else {
+        quizzes.classList.remove('hidden');
+        videos.classList.add('hidden');
+        tabQ.className = 'px-5 py-2 rounded-full text-sm font-bold bg-slate-900 text-white transition-all';
+        tabV.className = 'px-5 py-2 rounded-full text-sm font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all';
+      }
+    }
+
+    buildResourceCards();
+  </script>
+  <script src="js/profile.js"></script>
+  <script src="js/ai_tutor.js"></script>
+</body>
+
+</html>

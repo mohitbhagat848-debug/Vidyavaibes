@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AMEP | Learn, Adapt, and Grow</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#001a42",
+                        "outline": "#727786",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-fixed-variant": "#2a467a",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-fixed": "#341100",
+                        "primary-container": "#006fef",
+                        "on-secondary-container": "#334e83",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#9b4000",
+                        "primary-fixed": "#d8e2ff",
+                        "on-surface": "#191c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#aec6ff",
+                        "surface-container-high": "#e6e8ea",
+                        "surface": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary-container": "#c35200",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001a42",
+                        "surface-container": "#eceef0",
+                        "secondary-fixed": "#d8e2ff",
+                        "background": "#f7f9fb",
+                        "inverse-primary": "#aec6ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed-dim": "#aec6ff",
+                        "on-primary-fixed-variant": "#004396",
+                        "on-primary-container": "#fefcff",
+                        "tertiary-fixed": "#ffdbcb",
+                        "tertiary-fixed-dim": "#ffb692",
+                        "secondary-container": "#a6c1fd",
+                        "surface-tint": "#005ac4",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191c1e",
+                        "on-error": "#ffffff",
+                        "secondary": "#435e94",
+                        "inverse-surface": "#2d3133",
+                        "on-surface-variant": "#414754",
+                        "outline-variant": "#c1c6d7",
+                        "on-tertiary-fixed-variant": "#793000",
+                        "primary": "#0058bf"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .dot-grid {
+            background-image: radial-gradient(circle, #c1c6d7 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .ethereal-shadow {
+            box-shadow: 0px 10px 40px rgba(25, 28, 30, 0.06), 0px 2px 10px rgba(25, 28, 30, 0.04);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+    <nav
+        class="fixed top-0 w-full z-50 bg-[#f7f9fb]/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm dark:shadow-none">
+        <div class="relative flex justify-between items-center max-w-7xl mx-auto px-8 py-4">
+            <div class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white">AMEP</div>
+            <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center font-['Inter'] font-medium text-sm tracking-tight">
+                <a class="text-[#0058bf] dark:text-blue-400 font-semibold border-b-2 border-[#0058bf] pb-1"
+                    href="#">Features</a>
+            </div>
+            <div class="flex items-center gap-4" id="auth-buttons">
+                <a class="text-sm font-semibold text-slate-600 hover:text-primary transition-all" href="login.html">Sign
+                    in</a>
+                <a class="bg-primary text-on-primary px-6 py-2.5 rounded-full text-sm font-semibold hover:opacity-80 active:scale-95 transition-all text-center"
+                    href="signup.html">Get Started</a>
+            </div>
+        </div>
+    </nav>
+    <main class="relative min-h-screen pt-32 pb-20 px-4 dot-grid">
+        <div class="max-w-6xl mx-auto">
+            <section
+                class="relative bg-surface-container-lowest rounded-xl ethereal-shadow p-12 md:p-24 text-center overflow-visible">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div
+                        class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white ethereal-shadow">
+                        <span class="material-symbols-outlined text-4xl" data-icon="auto_awesome">auto_awesome</span>
+                    </div>
+                </div>
+                <div class="relative z-10">
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-6 leading-[1.1]">
+                        Learn, adapt, and grow <br class="hidden md:block" /> all in one place.
+                    </h1>
+                    <p
+                        class="max-w-2xl mx-auto text-lg md:text-xl text-on-surface-variant mb-10 leading-relaxed font-body">
+                        The world's first AI-driven education workspace that evolves with your curiosity. Organize,
+                        synthesize, and master any subject with weightless precision.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a class="bg-primary text-on-primary px-10 py-5 rounded-full text-lg font-bold ethereal-shadow hover:opacity-90 active:scale-95 transition-all text-center"
+                            href="signup.html">
+                            Get Started
+                        </a>
+
+                    </div>
+                </div>
+                <div class="hidden lg:block">
+                    <div
+                        class="absolute -left-12 top-20 w-48 bg-tertiary-fixed p-6 rounded-lg ethereal-shadow -rotate-3 transition-transform hover:rotate-0 cursor-default">
+                        <span
+                            class="block text-xs font-semibold uppercase tracking-widest text-on-tertiary-fixed-variant mb-2">Quick
+                            Note</span>
+                        <p class="text-sm font-medium leading-tight text-on-tertiary-fixed">
+                            Explore the relationship between neural networks and human cognition.
+                        </p>
+                    </div>
+                    <div
+                        class="absolute -left-20 bottom-12 w-64 bg-surface-container-lowest p-6 rounded-lg ethereal-shadow rotate-2 hover:rotate-0 transition-transform">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-semibold text-sm">Today's Tasks</h4>
+                            <span class="text-xs font-bold text-primary">60%</span>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+                                <div class="h-full bg-primary w-[60%]"></div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-green-500 text-lg" data-icon="check_circle"
+                                    data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                <span class="text-xs text-on-surface-variant line-through">Review AI Ethics paper</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-outline-variant text-lg"
+                                    data-icon="radio_button_unchecked">radio_button_unchecked</span>
+                                <span class="text-xs text-on-surface">Annotate math proof</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute -right-16 top-32 w-56 bg-surface-container-lowest p-5 rounded-lg ethereal-shadow rotate-1 hover:rotate-0 transition-transform">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+                                <span class="material-symbols-outlined text-on-secondary-container"
+                                    data-icon="schedule">schedule</span>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold">Upcoming</p>
+                                <p class="text-[10px] text-on-surface-variant">In 15 minutes</p>
+                            </div>
+                        </div>
+                        <p class="text-sm font-medium">Deep Learning Seminar</p>
+                    </div>
+                    <div
+                        class="absolute -right-24 bottom-20 w-72 bg-surface-container-lowest p-6 rounded-lg ethereal-shadow -rotate-2 hover:rotate-0 transition-transform">
+                        <p class="text-xs font-bold mb-4 uppercase tracking-wider text-outline">Active Integrations</p>
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center hover:bg-surface-container-high transition-colors">
+                                <span class="material-symbols-outlined text-red-500" data-icon="mail">mail</span>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center hover:bg-surface-container-high transition-colors">
+                                <span class="material-symbols-outlined text-indigo-500" data-icon="slack">chat</span>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center hover:bg-surface-container-high transition-colors">
+                                <span class="material-symbols-outlined text-blue-500"
+                                    data-icon="calendar_month">calendar_month</span>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center hover:bg-surface-container-high transition-colors">
+                                <span class="material-symbols-outlined text-green-500"
+                                    data-icon="drive_file_move">drive_file_move</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="mt-40 grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div
+                    class="p-8 rounded-lg bg-surface-container-low transition-all hover:bg-surface-container-lowest hover:ethereal-shadow group">
+                    <div
+                        class="w-14 h-14 bg-secondary-container rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-on-secondary-container text-3xl"
+                            data-icon="psychology">psychology</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Adaptive AI</h3>
+                    <p class="text-on-surface-variant leading-relaxed">Our models learn your learning style, tailoring
+                        content to your pace and proficiency levels instantly.</p>
+                </div>
+                <div
+                    class="p-8 rounded-lg bg-surface-container-low transition-all hover:bg-surface-container-lowest hover:ethereal-shadow group">
+                    <div
+                        class="w-14 h-14 bg-primary-fixed rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-on-primary-fixed-variant text-3xl"
+                            data-icon="hub">hub</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Unified Canvas</h3>
+                    <p class="text-on-surface-variant leading-relaxed">Bridge documents, notes, and research into a
+                        single interconnected workspace of endless nodes.</p>
+                </div>
+                <div
+                    class="p-8 rounded-lg bg-surface-container-low transition-all hover:bg-surface-container-lowest hover:ethereal-shadow group">
+                    <div
+                        class="w-14 h-14 bg-tertiary-fixed rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-on-tertiary-fixed-variant text-3xl"
+                            data-icon="speed">speed</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Instant Insights</h3>
+                    <p class="text-on-surface-variant leading-relaxed">Synthesize complex topics into actionable
+                        summaries and study plans in less than three seconds.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="w-full border-t border-slate-200/20 dark:border-slate-800/20 bg-[#f7f9fb] dark:bg-slate-950">
+        <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 py-12 gap-6">
+            <div class="text-lg font-bold text-slate-900 dark:text-white">AMEP</div>
+            <div class="flex gap-8 font-['Inter'] text-xs uppercase tracking-widest font-semibold">
+                <a class="text-slate-500 dark:text-slate-400 hover:underline decoration-[#0058bf] underline-offset-4 transition-all"
+                    href="#">Privacy Policy</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:underline decoration-[#0058bf] underline-offset-4 transition-all"
+                    href="#">Terms of Service</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:underline decoration-[#0058bf] underline-offset-4 transition-all"
+                    href="#">Cookie Policy</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:underline decoration-[#0058bf] underline-offset-4 transition-all"
+                    href="#">Contact</a>
+            </div>
+            <p class="text-xs uppercase tracking-widest font-semibold text-slate-500 dark:text-slate-400">
+                © 2024 AMEP Inc. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    <script>
+        const token = localStorage.getItem('amep_token');
+        const user = JSON.parse(localStorage.getItem('amep_user') || 'null');
+        
+        if (token && user) {
+            const authButtons = document.getElementById('auth-buttons');
+            const ROLE_REDIRECT = {
+                student: 'student_dashboard.html',
+                teacher: 'teacher_dashboard.html',
+                parent:  'parent_portal.html',
+            };
+            const dashboardUrl = ROLE_REDIRECT[user.role] || 'student_dashboard.html';
+            
+            authButtons.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium text-slate-600 hidden sm:block">Hi, ${user.name || user.fullName || 'User'}</span>
+                    <a href="${dashboardUrl}" class="bg-primary text-on-primary px-6 py-2.5 rounded-full text-sm font-semibold hover:opacity-80 active:scale-95 transition-all text-center">
+                        Dashboard
+                    </a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+
+</html>

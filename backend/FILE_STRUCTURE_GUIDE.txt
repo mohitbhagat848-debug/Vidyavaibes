@@ -1,0 +1,83 @@
+AMEP (Adaptive Personalized Learning Platform) - Backend File Guide
+
+This document explains the purpose of each file and folder in the backend.
+
+--------------------------------------------------
+CORE FILES
+--------------------------------------------------
+- server.js
+  Language: JavaScript
+  Function: The main entry point. Sets up Express, security middleware (CORS, Helmet), routes, and starts the server.
+
+- .env
+  Language: Configuration
+  Function: Stores secret keys and environment-specific variables like Database URLs and AI API keys.
+
+- package.json
+  Language: JSON
+  Function: Lists project dependencies (Express, Mongoose, etc.) and defining run scripts (npm start, npm run dev).
+
+--------------------------------------------------
+ROUTES (/routes)
+--------------------------------------------------
+Each file here defines the specific API URLs (endpoints) for a module.
+
+- authRoutes.js: Logic for signup, login, and user profiles.
+- learningRoutes.js: Fetching topics, marking completion, and saving notes.
+- quizRoutes.js: Adaptive quiz delivery and result submission.
+- varkRoutes.js: Submitting and retrieving the VARK learning style assessment.
+- aiRoutes.js: Endpoint for the AI Tutor (Gemini/OpenAI integration).
+- teacherRoutes.js: Dashboard data for instructors and student alerts.
+- parentRoutes.js: Dashboard data for parents and child linking.
+- analyticsRoutes.js: Logic for calculating progress and performance statistics.
+- notificationRoutes.js: Managing user alerts and notifications.
+
+--------------------------------------------------
+CONTROLLERS (/controllers)
+--------------------------------------------------
+The "brain" of the app. These files contain the actual business logic for the routes above.
+
+- authController.js: Handles user registration, password hashing, and login validation.
+- learningController.js: Manages content delivery based on learning styles.
+- quizController.js: Includes the adaptive logic that changes difficulty based on scores.
+- varkController.js: Logic to calculate a student's VARK type (Visual, Auditory, etc.).
+- aiController.js: Communicates with Google Gemini or OpenAI APIs.
+- teacherController.js: Aggregates student data for the teacher's dashboard.
+- parentController.js: Aggregates child data for the parent's dashboard.
+- analyticsController.js: Calculates mastery scores, average times, and progress %.
+- notificationController.js: CRUD operations for the user notification center.
+
+--------------------------------------------------
+MODELS (/models)
+--------------------------------------------------
+Defines the structure of the data stored in MongoDB.
+
+- User.js: Schema for all accounts (Student, Teacher, Parent).
+- StudentProfile.js: Detailed student stats (streak, learning style, bookmarks).
+- Topic.js: Structure for lessons/content (supports multiple content variants).
+- Quiz.js: Structure for adaptive quizzes and their questions.
+- Result.js: History of quiz scores and time taken.
+- Progress.js: Tracks a student's completion status per topic.
+- Notification.js: Schema for system and teacher-sent alerts.
+
+--------------------------------------------------
+MIDDLEWARE (/middleware)
+--------------------------------------------------
+Functions that run before the main logic (security and processing).
+
+- auth.js: Protects routes by verifying JWT tokens and checking user roles.
+- validate.js: Checks if the user sent correct data (e.g., valid email/password).
+- errorHandler.js: Catches all system errors and returns a clean error message.
+
+--------------------------------------------------
+CONFIG & UTILS
+--------------------------------------------------
+- config/db.js: Logic to connect to the MongoDB database safely.
+- utils/generateToken.js: Helper to create the secure JWT session tokens.
+- utils/notificationHelper.js: Reusable function to create and send app notifications.
+
+--------------------------------------------------
+DOCUMENTATION
+--------------------------------------------------
+- REQUIREMENTS.txt: Step-by-step instructions on how to install and run the code.
+- FILE_STRUCTURE_GUIDE.txt: (This file) Overview of the project architecture.

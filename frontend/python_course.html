@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Basic Python - 7 Day Course | AMEP</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#00261b", "primary-container": "#0b3d2e", "on-primary": "#ffffff",
+            "on-primary-container": "#79a894", "secondary": "#446900", "secondary-container": "#b2f746",
+            "on-secondary-container": "#496f00", "background": "#f9f9f9", "surface": "#f9f9f9",
+            "on-surface": "#1a1c1c", "on-surface-variant": "#414944", "outline": "#717974",
+            "outline-variant": "#c0c8c3", "error": "#ba1a1a", "surface-container": "#eeeeee",
+            "surface-container-low": "#f3f3f4", "surface-container-high": "#e8e8e8",
+            "primary-fixed": "#bcedd7", "primary-fixed-dim": "#a0d1bc",
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px" },
+          fontFamily: { "headline": ["Inter"], "body": ["Inter"] }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+    body { font-family: 'Inter', sans-serif; }
+    .day-btn.active { background: #00261b; color: white; }
+    .option-btn { transition: all 0.15s; }
+    .option-btn.selected { background: #0b3d2e; color: white; border-color: #0b3d2e; }
+    .option-btn.correct { background: #d1fae5; border-color: #059669; color: #065f46; }
+    .option-btn.incorrect { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+    .option-btn:disabled { cursor: not-allowed; }
+    @keyframes slideUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+    .slide-up { animation: slideUp 0.4s ease forwards; }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+
+<!-- Top Nav -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <a href="student_dashboard.html" class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span class="text-sm font-medium hidden sm:block">Dashboard</span>
+      </a>
+      <div class="h-5 w-px bg-gray-200"></div>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white">
+          <span class="material-symbols-outlined text-sm">code</span>
+        </div>
+        <div>
+          <p class="text-sm font-bold text-primary leading-tight">Basic Python</p>
+          <p class="text-[10px] text-slate-400 leading-tight">7-Day Course</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="hidden sm:flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-full">
+        <span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings:'FILL' 1;">bolt</span>
+        <span class="text-xs font-bold text-primary" id="header-progress">0/7 Days</span>
+      </div>
+      <div class="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-900 user-initials-display">U</div>
+    </div>
+  </div>
+</header>
+
+<div class="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
+
+  <!-- Sidebar: Day Navigation -->
+  <aside class="lg:w-72 shrink-0">
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden sticky top-24">
+      <!-- Course Header -->
+      <div class="bg-gradient-to-br from-yellow-400 to-orange-500 p-6 text-white">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">code</span>
+          </div>
+          <div>
+            <h1 class="text-lg font-black">Basic Python</h1>
+            <p class="text-xs opacity-80">7-Day Crash Course</p>
+          </div>
+        </div>
+        <!-- Overall Progress -->
+        <div>
+          <div class="flex justify-between text-xs font-bold mb-1.5">
+            <span>Overall Progress</span>
+            <span id="progress-label">0%</span>
+          </div>
+          <div class="h-2 bg-white/20 rounded-full overflow-hidden">
+            <div id="overall-progress-bar" class="h-full bg-white rounded-full transition-all duration-700" style="width:0%"></div>
+          </div>
+          <p class="text-xs opacity-70 mt-2" id="progress-sub">Start Day 1 to begin!</p>
+        </div>
+      </div>
+      <!-- Day List -->
+      <div class="p-3 space-y-1" id="day-nav"></div>
+    </div>
+  </aside>
+
+  <!-- Main: Video + Quiz -->
+  <main class="flex-1 min-w-0 space-y-6" id="main-content">
+    <!-- Placeholder before any day is selected -->
+    <div id="intro-card" class="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center slide-up">
+      <div class="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6">
+        <span class="material-symbols-outlined text-4xl text-white" style="font-variation-settings:'FILL' 1;">school</span>
+      </div>
+      <h2 class="text-2xl font-black text-primary mb-3">Welcome to Basic Python! 🐍</h2>
+      <p class="text-on-surface-variant max-w-md mx-auto mb-8">This 7-day course takes you from zero to writing real Python programs. Each day includes a video lesson and a 5-question quiz. Pick a day from the sidebar to start!</p>
+      <button onclick="loadDay(1)" class="px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-orange-200">
+        Start Day 1 →
+      </button>
+    </div>
+
+    <!-- Day Content (injected by JS) -->
+    <div id="day-content" class="hidden space-y-6"></div>
+  </main>
+</div>
+
+<script src="js/python_course.js"></script>
+<script src="js/profile.js"></script>
+<script>
+  let currentDay = null;
+  let quizAnswered = {};
+
+  // ── Build Sidebar ──────────────────────────────────────────────────────────
+  function buildSidebar() {
+    const nav = document.getElementById('day-nav');
+    nav.innerHTML = '';
+    PYTHON_COURSE.days.forEach(d => {
+      const prog = getDayProgress(d.day);
+      const done = !!prog;
+      const score = done ? prog.scorePercent : null;
+      const btn = document.createElement('button');
+      btn.id = `day-btn-${d.day}`;
+      btn.className = `day-btn w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-surface-container transition-all text-left ${currentDay === d.day ? 'active' : ''}`;
+      btn.onclick = () => loadDay(d.day);
+      btn.innerHTML = `
+        <div class="w-9 h-9 rounded-xl shrink-0 flex items-center justify-center text-sm font-black
+          ${done ? 'bg-secondary-container text-secondary' : 'bg-surface-container text-on-surface-variant'}">
+          ${done ? '<span class="material-symbols-outlined text-lg" style="font-variation-settings:\'FILL\' 1;">check_circle</span>' : d.day}
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-bold text-on-surface truncate">Day ${d.day}: ${d.title}</p>
+          <p class="text-[10px] text-slate-500">${d.duration}${done ? ` • Quiz: ${score}%` : ''}</p>
+        </div>
+        ${done && score >= 80 ? '<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings:\'FILL\' 1;">star</span>' : ''}
+      `;
+      nav.appendChild(btn);
+    });
+  }
+
+  // ── Update Header Progress ─────────────────────────────────────────────────
+  function updateHeaderProgress() {
+    const completed = getCompletedDays();
+    const pct = Math.round((completed / 7) * 100);
+    document.getElementById('header-progress').textContent = `${completed}/7 Days`;
+    document.getElementById('progress-label').textContent = `${pct}%`;
+    document.getElementById('overall-progress-bar').style.width = `${pct}%`;
+    document.getElementById('progress-sub').textContent =
+      completed === 0 ? 'Start Day 1 to begin!' :
+      completed === 7 ? '🎉 Course Complete!' :
+      `${7 - completed} day${7 - completed !== 1 ? 's' : ''} remaining`;
+  }
+
+  // ── Load a Day ─────────────────────────────────────────────────────────────
+  function loadDay(dayNum) {
+    currentDay = dayNum;
+    quizAnswered = {};
+    const day = PYTHON_COURSE.days[dayNum - 1];
+    const prog = getDayProgress(dayNum);
+
+    document.getElementById('intro-card').classList.add('hidden');
+    const content = document.getElementById('day-content');
+    content.classList.remove('hidden');
+
+    content.innerHTML = `
+      <!-- Day Header -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 slide-up">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center text-white shrink-0">
+            <span class="text-2xl font-black">${dayNum}</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">Day ${dayNum} of 7</span>
+              ${prog ? `<span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">✓ Completed</span>` : ''}
+            </div>
+            <h2 class="text-2xl font-black text-primary">${day.title}</h2>
+            <p class="text-sm text-on-surface-variant mt-1">${day.description}</p>
+          </div>
+        </div>
+        <!-- Topics -->
+        <div class="flex flex-wrap gap-2 mt-4">
+          ${day.topics.map(t => `<span class="px-3 py-1 bg-surface-container text-on-surface-variant text-xs font-semibold rounded-full">${t}</span>`).join('')}
+        </div>
+      </div>
+
+      <!-- Video Player -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden slide-up">
+        <div class="p-4 border-b border-gray-100 flex items-center gap-3">
+          <span class="material-symbols-outlined text-red-500" style="font-variation-settings:'FILL' 1;">play_circle</span>
+          <h3 class="font-bold text-primary">Video Lesson — ${day.duration}</h3>
+        </div>
+        <div class="relative w-full" style="padding-top: 56.25%;">
+          <iframe
+            class="absolute inset-0 w-full h-full"
+            src="https://www.youtube.com/embed/${day.videoId}?rel=0&modestbranding=1"
+            title="Day ${dayNum}: ${day.title}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Quiz Section -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 slide-up">
+        <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-secondary" style="font-variation-settings:'FILL' 1;">quiz</span>
+            <div>
+              <h3 class="font-bold text-primary">Day ${dayNum} Quiz</h3>
+              <p class="text-xs text-slate-500">5 questions — test what you've learned</p>
+            </div>
+          </div>
+          ${prog ? `<div class="text-right">
+            <p class="text-2xl font-black ${prog.scorePercent >= 80 ? 'text-green-600' : 'text-orange-500'}">${prog.scorePercent}%</p>
+            <p class="text-xs text-slate-400">Best score</p>
+          </div>` : ''}
+        </div>
+        <div class="p-6 space-y-8" id="quiz-questions"></div>
+        <div class="px-6 pb-6" id="quiz-footer"></div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex items-center justify-between slide-up">
+        ${dayNum > 1 ? `<button onclick="loadDay(${dayNum - 1})" class="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-2xl font-bold text-primary hover:bg-surface-container transition-all">
+          <span class="material-symbols-outlined">arrow_back</span> Day ${dayNum - 1}
+        </button>` : '<div></div>'}
+        ${dayNum < 7 ? `<button onclick="loadDay(${dayNum + 1})" class="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-2xl font-bold hover:bg-primary-container transition-all">
+          Day ${dayNum + 1} <span class="material-symbols-outlined">arrow_forward</span>
+        </button>` : `<div class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-2xl font-bold">🎉 Course Complete!</div>`}
+      </div>
+    `;
+
+    buildQuiz(day);
+    buildSidebar();
+    updateHeaderProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Highlight active day in sidebar
+    document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.getElementById(`day-btn-${dayNum}`);
+    if (activeBtn) activeBtn.classList.add('active');
+  }
+
+  // ── Build Quiz ─────────────────────────────────────────────────────────────
+  function buildQuiz(day) {
+    const container = document.getElementById('quiz-questions');
+    container.innerHTML = '';
+    const prog = getDayProgress(day.day);
+
+    day.quiz.forEach((q, qi) => {
+      const div = document.createElement('div');
+      div.className = 'space-y-3';
+      div.innerHTML = `
+        <p class="font-bold text-primary">Q${qi + 1}. ${q.q}</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="options-${qi}">
+          ${q.options.map((opt, oi) => `
+            <button
+              class="option-btn w-full text-left px-4 py-3 border-2 border-gray-100 rounded-xl text-sm font-medium
+                     hover:border-primary hover:bg-surface-container-low"
+              onclick="selectOption(${qi}, ${oi}, ${q.answer})"
+              id="opt-${qi}-${oi}"
+              data-qi="${qi}" data-oi="${oi}"
+              ${prog ? 'disabled' : ''}>
+              <span class="font-bold text-slate-400 mr-2">${String.fromCharCode(65 + oi)}.</span> ${opt}
+            </button>
+          `).join('')}
+        </div>
+      `;
+      container.appendChild(div);
+
+      // If already completed, show the answers
+      if (prog) {
+        const saved = prog.answers || {};
+        const selected = saved[qi] !== undefined ? saved[qi] : -1;
+        showAnswer(qi, selected, q.answer, true);
+      }
+    });
+
+    buildQuizFooter(day, prog);
+  }
+
+  // ── Select Option ──────────────────────────────────────────────────────────
+  function selectOption(qi, oi, correctAnswer) {
+    if (quizAnswered[qi] !== undefined) return; // already answered this Q
+    quizAnswered[qi] = oi;
+    showAnswer(qi, oi, correctAnswer, false);
+    buildQuizFooter(PYTHON_COURSE.days[currentDay - 1], null);
+  }
+
+  function showAnswer(qi, selected, correct, readonly) {
+    const opts = document.querySelectorAll(`#options-${qi} button`);
+    opts.forEach((btn, oi) => {
+      btn.disabled = true;
+      if (oi === correct) btn.classList.add('correct');
+      else if (oi === selected && selected !== correct) btn.classList.add('incorrect');
+    });
+  }
+
+  // ── Quiz Footer ─────────────────────────────────────────────────────────────
+  function buildQuizFooter(day, existingProg) {
+    const footer = document.getElementById('quiz-footer');
+    const answered = Object.keys(quizAnswered).length;
+    const total = day.quiz.length;
+
+    if (existingProg) {
+      footer.innerHTML = `
+        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+          <div>
+            <p class="text-sm font-bold text-on-surface">Score: ${existingProg.quizScore}/${existingProg.totalQuestions}</p>
+            <p class="text-xs text-slate-500">Completed ${new Date(existingProg.completedAt).toLocaleDateString()}</p>
+          </div>
+          <button onclick="retakeQuiz(${day.day})" class="px-5 py-2.5 bg-surface-container text-primary font-bold rounded-xl text-sm hover:bg-surface-container-high transition-all">
+            Retake Quiz
+          </button>
+        </div>
+      `;
+      return;
+    }
+
+    if (answered < total) {
+      footer.innerHTML = `
+        <div class="pt-4 border-t border-gray-100 flex items-center gap-3">
+          <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-full bg-secondary-container rounded-full transition-all" style="width:${(answered/total)*100}%"></div>
+          </div>
+          <span class="text-xs font-bold text-slate-500">${answered}/${total} answered</span>
+        </div>
+      `;
+    } else {
+      // All answered — calculate score
+      const score = day.quiz.filter((q, qi) => quizAnswered[qi] === q.answer).length;
+      const pct = Math.round((score / total) * 100);
+      footer.innerHTML = `
+        <div class="pt-4 border-t border-gray-100 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-2xl font-black ${pct >= 80 ? 'text-green-600' : 'text-orange-500'}">${pct}%</p>
+              <p class="text-sm text-slate-500">${score} of ${total} correct</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm font-bold ${pct >= 80 ? 'text-green-600' : 'text-orange-500'}">
+                ${pct >= 80 ? '🌟 Excellent! Ready for next day.' : pct >= 60 ? '👍 Good effort! Review the video.' : '📚 Keep practicing!'}
+              </p>
+            </div>
+          </div>
+          <button onclick="submitQuiz(${day.day}, ${score}, ${total})"
+            class="w-full py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-black rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-md shadow-orange-200">
+            Submit & Save Progress
+          </button>
+        </div>
+      `;
+    }
+  }
+
+  // ── Submit Quiz ─────────────────────────────────────────────────────────────
+  function submitQuiz(day, score, total) {
+    const answers = { ...quizAnswered };
+    const progress = getCourseProgress();
+    progress[`day_${day}`] = {
+      completed: true,
+      quizScore: score,
+      totalQuestions: total,
+      scorePercent: Math.round((score / total) * 100),
+      answers,
+      completedAt: new Date().toISOString()
+    };
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+    updateAnalytics(progress);
+
+    // Show celebration if all 7 done
+    if (getCompletedDays() === 7) {
+      showCompletionBanner();
+    }
+
+    loadDay(day); // reload to show saved state
+  }
+
+  // ── Retake Quiz ─────────────────────────────────────────────────────────────
+  function retakeQuiz(dayNum) {
+    const progress = getCourseProgress();
+    delete progress[`day_${dayNum}`];
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+    updateAnalytics(progress);
+    loadDay(dayNum);
+  }
+
+  // ── Completion Banner ───────────────────────────────────────────────────────
+  function showCompletionBanner() {
+    const banner = document.createElement('div');
+    banner.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4';
+    banner.innerHTML = `
+      <div class="bg-white rounded-3xl p-10 max-w-md w-full text-center shadow-2xl">
+        <div class="text-6xl mb-4">🎉</div>
+        <h2 class="text-3xl font-black text-primary mb-2">Course Complete!</h2>
+        <p class="text-on-surface-variant mb-4">You've finished all 7 days of Basic Python.<br>Check your analytics for detailed results.</p>
+        <p class="text-2xl font-black text-green-600 mb-6">Avg Score: ${getOverallScore()}%</p>
+        <div class="flex gap-3">
+          <a href="analytics.html" class="flex-1 py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary-container transition-all">View Analytics</a>
+          <button onclick="this.closest('.fixed').remove()" class="flex-1 py-3 bg-surface-container text-primary font-bold rounded-2xl hover:bg-surface-container-high transition-all">Close</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(banner);
+  }
+
+  // ── Init ────────────────────────────────────────────────────────────────────
+  buildSidebar();
+  updateHeaderProgress();
+</script>
+<script src="js/ai_tutor.js"></script>
+</body>
+</html>

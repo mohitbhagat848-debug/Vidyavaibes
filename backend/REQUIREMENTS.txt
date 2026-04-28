@@ -1,0 +1,61 @@
+AMEP (Adaptive Personalized Learning Platform) - Backend Requirements & Setup Guide
+
+This backend is built on the following tech stack:
+- Node.js (v18+ recommended)
+- Express.js
+- MongoDB (Mongoose)
+- JSON Web Token (JWT)
+
+--------------------------------------------------
+1. PREREQUISITES
+--------------------------------------------------
+- Node.js installed: https://nodejs.org/
+- MongoDB installed locally or a MongoDB Atlas URI: https://www.mongodb.com/cloud/atlas
+- An API Key for Gemini (Google AI) or OpenAI (Optional, for AI Assistant feature)
+
+--------------------------------------------------
+2. INSTALLATION
+--------------------------------------------------
+Open your terminal in the 'backend' folder and run:
+   npm install
+
+--------------------------------------------------
+3. ENVIRONMENT CONFIGURATION (.env)
+--------------------------------------------------
+A .env file is required in the backend directory. You can copy the .env.example if available.
+
+Ensure the following variables are set correctly:
+
+- PORT: The port your server will run on (Default: 5000)
+- MONGODB_URI: Your MongoDB connection string.
+   Example: mongodb://localhost:27017/amep_db
+- JWT_SECRET: A strong password/key to sign your tokens. 
+- JWT_EXPIRE: How long the token remains valid (e.g., 7d)
+- GEMINI_API_KEY: Your Google Gemini API Key.
+- OPENAI_API_KEY: Your OpenAI API Key (Alternative to Gemini).
+- FRONTEND_URL: The URL of your frontend application (for CORS).
+   Example: http://localhost:3000
+
+--------------------------------------------------
+4. RUNNING THE SERVER
+--------------------------------------------------
+To start the server in development mode (with auto-restart):
+   npm run dev
+
+To start the server in production mode:
+   npm start
+
+The server will automatically connect to MongoDB and start listening on the configured PORT.
+
+--------------------------------------------------
+5. API ENDPOINTS
+--------------------------------------------------
+- Auth: /api/auth (login, signup, me)
+- VARK: /api/vark (assessment submission)
+- Learning: /api/learning (content, progress)
+- Quiz: /api/quiz (get, submit, history)
+- AI: /api/ai (ask-ai endpoint)
+- Teacher: /api/teacher (dashboard, student details)
+- Parent: /api/parent (dashboard, child linking)
+- Analytics: /api/analytics
+- Notifications: /api/notifications

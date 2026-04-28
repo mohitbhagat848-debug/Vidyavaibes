@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>AMEP - AI Study Assistant</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "outline": "#717974",
+            "on-surface": "#1a1c1c",
+            "primary": "#00261b",
+            "secondary": "#446900",
+            "surface-container": "#eeeeee",
+            "secondary-fixed": "#b2f746",
+            "tertiary-container": "#720100",
+            "primary-container": "#0b3d2e",
+            "background": "#f9f9f9",
+            "tertiary": "#4a0000",
+            "on-tertiary-container": "#ff725e",
+            "inverse-surface": "#2f3131",
+            "surface-container-highest": "#e2e2e2",
+            "on-secondary-fixed": "#121f00",
+            "surface-container-high": "#e8e8e8",
+            "error-container": "#ffdad6",
+            "on-background": "#1a1c1c",
+            "secondary-fixed-dim": "#98da27",
+            "surface-variant": "#e2e2e2",
+            "on-primary-fixed": "#002116",
+            "tertiary-fixed-dim": "#ffb4a8",
+            "outline-variant": "#c0c8c3",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#930100",
+            "on-secondary": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "inverse-on-surface": "#f0f1f1",
+            "inverse-primary": "#a0d1bc",
+            "surface-container-low": "#f3f3f4",
+            "surface-tint": "#396756",
+            "on-tertiary-fixed": "#410000",
+            "primary-fixed-dim": "#a0d1bc",
+            "surface-bright": "#f9f9f9",
+            "secondary-container": "#b2f746",
+            "on-secondary-fixed-variant": "#334f00",
+            "on-primary-container": "#79a894",
+            "tertiary-fixed": "#ffdad4",
+            "on-secondary-container": "#496f00",
+            "surface-dim": "#dadada",
+            "surface": "#f9f9f9",
+            "surface-container-lowest": "#ffffff",
+            "on-surface-variant": "#414944",
+            "primary-fixed": "#bcedd7",
+            "on-primary-fixed-variant": "#214f3f"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Inter"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    #chat-section {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen flex">
+  <!-- SideNavBar -->
+  <aside
+    class="fixed left-0 top-0 h-full flex flex-col p-4 z-40 bg-slate-50 dark:bg-emerald-950 text-emerald-900 dark:text-emerald-100 text-sm font-medium Inter border-r border-slate-200 dark:border-emerald-800 w-64 hidden md:flex">
+    <div class="flex items-center gap-3 mb-8 px-2">
+      <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+        <span class="material-symbols-outlined" data-icon="school">school</span>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold text-emerald-900 dark:text-emerald-50 leading-tight">AMEP Learning</h1>
+        <p class="text-[10px] opacity-70 uppercase tracking-wider">Education Platform</p>
+      </div>
+    </div>
+    <nav class="flex-1 space-y-1">
+      <a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-emerald-50 dark:hover:bg-emerald-900 transition-all rounded-lg"
+        href="student_dashboard.html">
+        <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+
+
+      <a class="flex items-center gap-3 bg-emerald-100 dark:bg-emerald-800 text-emerald-900 dark:text-emerald-50 rounded-lg px-4 py-3 transition-all scale-95 active:scale-90"
+        href="ai_assistant.html">
+        <span class="material-symbols-outlined" data-icon="smart_toy"
+          style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+        <span>AI Assistant</span>
+      </a>
+      <a class="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-emerald-50 dark:hover:bg-emerald-900 transition-all rounded-lg"
+        href="feedback.html">
+        <span class="material-symbols-outlined" data-icon="feedback">feedback</span>
+        <span>Feedback</span>
+      </a>
+    </nav>
+    <div class="mt-auto pt-4 border-t border-slate-200 dark:border-emerald-800 space-y-1">
+
+      <button onclick="amepLogout()"
+        class="flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-emerald-50 dark:hover:bg-emerald-900 transition-all rounded-lg">
+        <span class="material-symbols-outlined" data-icon="logout">logout</span>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col md:ml-64 min-h-screen relative">
+    <!-- TopNavBar -->
+    <header
+      class="sticky top-0 z-30 flex justify-between items-center px-6 h-16 w-full bg-white dark:bg-emerald-950 text-emerald-900 dark:text-emerald-100 font-inter antialiased border-b border-slate-200 dark:border-emerald-800 shadow-sm">
+      <div class="flex flex-col">
+        <span class="text-xl font-black text-emerald-900 dark:text-emerald-50">AI Study Assistant 🤖</span>
+        <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium -mt-1">Ask anything and get instant
+          help</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-emerald-900/50 transition-colors rounded-full">
+          <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+        </button>
+        <button
+          class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-emerald-900/50 transition-colors rounded-full">
+          <span class="material-symbols-outlined" data-icon="settings">settings</span>
+        </button>
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="text-xs font-bold text-emerald-900 user-name-display"></span>
+        </div>
+        <div
+          class="h-8 w-8 rounded-full bg-primary-fixed overflow-hidden border border-emerald-200 dark:border-emerald-700 flex items-center justify-center text-xs font-bold text-emerald-900 user-initials-display">
+          U
+        </div>
+      </div>
+    </header>
+    <!-- Chat Canvas -->
+    <section class="flex-1 p-6 md:p-10 overflow-y-auto pb-48" id="chat-section">
+      <div class="max-w-4xl mx-auto space-y-6" id="chat-messages">
+        <!-- Date Separator -->
+        <div class="flex justify-center">
+          <span
+            class="px-3 py-1 bg-surface-container-low text-on-surface-variant text-[10px] font-bold tracking-widest uppercase rounded-full">Today</span>
+        </div>
+        <!-- Welcome message -->
+        <div class="flex justify-start items-start gap-3" id="welcome-msg">
+          <div
+            class="h-10 w-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0 shadow-sm">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+          </div>
+          <div class="max-w-[85%] bg-white border border-slate-100 p-5 rounded-xl rounded-tl-none shadow-sm">
+            <p class="text-sm leading-relaxed text-on-surface-variant">👋 Hi! I'm your <strong>AMEP AI Tutor</strong>.
+              Ask me anything about your studies and I'll help you understand it clearly. Try one of the quick actions
+              below, or type your own question!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Bottom Input Area -->
+    <footer
+      class="fixed bottom-0 left-0 md:left-64 right-0 p-6 bg-gradient-to-t from-background via-background to-transparent pointer-events-none">
+      <div class="max-w-4xl mx-auto pointer-events-auto">
+        <!-- Quick Actions -->
+        <div class="flex flex-wrap gap-2 mb-4">
+          <button
+            class="px-4 py-2 bg-white dark:bg-emerald-900/40 border border-slate-200 dark:border-emerald-800 rounded-full text-xs font-semibold text-emerald-800 dark:text-emerald-100 hover:border-emerald-300 dark:hover:border-emerald-600 hover:shadow-sm transition-all flex items-center gap-2 quick-chip"
+            data-text="Explain this topic to me step by step">
+            <span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+            Explain this topic
+          </button>
+          <button
+            class="px-4 py-2 bg-white dark:bg-emerald-900/40 border border-slate-200 dark:border-emerald-800 rounded-full text-xs font-semibold text-emerald-800 dark:text-emerald-100 hover:border-emerald-300 dark:hover:border-emerald-600 hover:shadow-sm transition-all flex items-center gap-2 quick-chip"
+            data-text="Generate 5 practice questions on this topic">
+            <span class="material-symbols-outlined text-sm" data-icon="quiz">quiz</span>
+            Generate practice questions
+          </button>
+          <button
+            class="px-4 py-2 bg-white dark:bg-emerald-900/40 border border-slate-200 dark:border-emerald-800 rounded-full text-xs font-semibold text-emerald-800 dark:text-emerald-100 hover:border-emerald-300 dark:hover:border-emerald-600 hover:shadow-sm transition-all flex items-center gap-2 quick-chip"
+            data-text="Give me a concise summary of">
+            <span class="material-symbols-outlined text-sm" data-icon="summarize">summarize</span>
+            Give summary
+          </button>
+          <button
+            class="px-4 py-2 bg-white dark:bg-emerald-900/40 border border-slate-200 dark:border-emerald-800 rounded-full text-xs font-semibold text-emerald-800 dark:text-emerald-100 hover:border-emerald-300 dark:hover:border-emerald-600 hover:shadow-sm transition-all flex items-center gap-2 quick-chip"
+            data-text="Help me with my homework:">
+            <span class="material-symbols-outlined text-sm" data-icon="edit_note">edit_note</span>
+            Help with homework
+          </button>
+        </div>
+        <!-- Input Field -->
+        <div
+          class="bg-white dark:bg-emerald-950 border border-slate-200 dark:border-emerald-800 rounded-2xl p-2 shadow-xl flex items-center gap-2">
+          <button class="p-2 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+            type="button">
+            <span class="material-symbols-outlined">attach_file</span>
+          </button>
+          <input id="chat-input"
+            class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-3 text-on-surface placeholder:text-slate-400"
+            placeholder="Ask your question..." type="text" />
+          <div class="flex items-center gap-1">
+            <button
+              class="h-10 w-10 bg-primary-container text-on-primary rounded-xl flex items-center justify-center hover:bg-emerald-800 active:scale-95 transition-all"
+              onclick="sendMessage()" id="send-btn" type="button">
+              <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+            </button>
+          </div>
+        </div>
+        <p class="text-center text-[10px] text-slate-400 mt-2">AI-generated content can be inaccurate. Always verify
+          with your textbooks.</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Load profile.js FIRST so auth guard, amepLogout(), and user data are ready -->
+  <script src="js/profile.js"></script>
+  <script>
+    // ── Constants ──────────────────────────────────────────────────────────────
+    const BACKEND_URL = 'http://127.0.0.1:5000';
+
+    // Read auth token (profile.js already redirected if missing, but double-check)
+    const _token = localStorage.getItem('amep_token');
+    const _user = JSON.parse(localStorage.getItem('amep_user') || 'null');
+
+    if (!_token) {
+      window.location.href = 'login.html';
+    }
+
+    // ── Core send function ─────────────────────────────────────────────────────
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const sendBtn = document.getElementById('send-btn');
+      const question = input.value.trim();
+      if (!question) return;
+
+      appendUserMessage(question);
+      input.value = '';
+      sendBtn.disabled = true;
+
+      const typingEl = appendTypingIndicator();
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/ai/ask`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${_token}`,
+          },
+          body: JSON.stringify({ question }),
+        });
+
+        typingEl.remove();
+        const data = await res.json();
+
+        if (res.status === 401) {
+          appendAIMessage('⚠️ Your session has expired. Redirecting to login...', true);
+          setTimeout(() => window.location.href = 'login.html', 2000);
+          return;
+        }
+
+        if (res.status === 403) {
+          appendAIMessage('⚠️ Access denied. You do not have permission to use the AI service.', true);
+          return;
+        }
+
+        if (res.status === 429) {
+          appendAIMessage('⚠️ Too many requests. Please wait a moment before asking again.', true);
+          return;
+        }
+
+        if (!res.ok || !data.success) {
+          const msg = data?.message || 'The AI service returned an unexpected error.';
+          appendAIMessage(`⚠️ ${msg}`, true);
+          return;
+        }
+
+        // Show a note if running in mock mode (no API key configured)
+        if (data.provider === 'mock') {
+          appendAIMessage(
+            `🔧 **Running in Mock Mode** — No AI API key is configured.\n\n` +
+            `To enable real AI responses, add your **NVIDIA_API_KEY**, **GEMINI_API_KEY**, or **OPENAI_API_KEY** to the backend .env file and restart the server.\n\n` +
+            `---\n\n${data.answer}`,
+            false
+          );
+        } else {
+          appendAIMessage(data.answer);
+        }
+
+      } catch (err) {
+        typingEl.remove();
+        appendAIMessage(
+          `❌ **Cannot reach the AI server.**\n\n` +
+          `Make sure the backend is running:\n` +
+          `\`cd backend && npm run dev\`\n\n` +
+          `Technical detail: ${err.message}`,
+          true
+        );
+      } finally {
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    }
+
+    // ── Render helpers ─────────────────────────────────────────────────────────
+    function getUserInitial() {
+      const name = _user?.name || _user?.fullName || _user?.email || 'U';
+      return name.trim().charAt(0).toUpperCase();
+    }
+
+    function formatAIText(raw) {
+      if (!raw) return '';
+      let text = escapeHtml(raw);
+      // Bold
+      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // Italic
+      text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      // Inline code
+      text = text.replace(/`([^`]+)`/g, '<code class="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-xs font-mono">$1</code>');
+      // Horizontal rule
+      text = text.replace(/---/g, '<hr class="my-2 border-slate-200"/>');
+      // Numbered list items
+      text = text.replace(/^(\d+\.\s)/gm, '<br/><span class="font-semibold">$1</span>');
+      // Bullet points
+      text = text.replace(/^[•\-]\s/gm, '<br/>• ');
+      // Line breaks
+      text = text.replace(/\n/g, '<br/>');
+      return text;
+    }
+
+    function appendUserMessage(text) {
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const el = document.createElement('div');
+      el.className = 'flex justify-end items-end gap-3 group';
+      el.innerHTML = `
+      <div class="flex flex-col items-end gap-1 max-w-[80%]">
+        <div class="bg-primary-container text-on-primary p-4 rounded-xl rounded-tr-none shadow-sm">
+          <p class="text-sm leading-relaxed">${escapeHtml(text)}</p>
+        </div>
+        <span class="text-[10px] text-slate-400">${time}</span>
+      </div>
+      <div class="h-8 w-8 rounded-full bg-emerald-200 shrink-0 mb-4 border border-white
+                  flex items-center justify-center text-xs font-bold text-emerald-900">
+        ${getUserInitial()}
+      </div>`;
+      document.getElementById('chat-messages').appendChild(el);
+      scrollToBottom();
+    }
+
+    function appendAIMessage(text, isError = false) {
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const formatted = formatAIText(text);
+      const el = document.createElement('div');
+      el.className = 'flex justify-start items-start gap-3 group';
+      el.innerHTML = `
+      <div class="h-10 w-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0 shadow-sm">
+        <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+      </div>
+      <div class="flex flex-col items-start gap-1 max-w-[85%]">
+        <div class="${isError
+          ? 'bg-red-50 border-red-200 text-red-700'
+          : 'bg-white border-slate-100 text-on-surface-variant'
+        } border p-5 rounded-xl rounded-tl-none shadow-sm">
+          <p class="text-sm leading-relaxed">${formatted}</p>
+        </div>
+        <span class="text-[10px] text-slate-400">AMEP AI • ${time}</span>
+      </div>`;
+      document.getElementById('chat-messages').appendChild(el);
+      scrollToBottom();
+    }
+
+    function appendTypingIndicator() {
+      const el = document.createElement('div');
+      el.className = 'flex items-center gap-3 ml-1';
+      el.id = 'typing-indicator';
+      el.innerHTML = `
+      <div class="h-10 w-10 rounded-xl bg-secondary-fixed flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+      </div>
+      <div class="flex gap-1 items-center bg-slate-100 px-3 py-2 rounded-full">
+        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce" style="animation-delay:0s"></div>
+        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce" style="animation-delay:.2s"></div>
+        <div class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce" style="animation-delay:.4s"></div>
+        <span class="ml-2 text-xs font-medium text-slate-500 italic">AMEP AI is thinking...</span>
+      </div>`;
+      document.getElementById('chat-messages').appendChild(el);
+      scrollToBottom();
+      return el;
+    }
+
+    function scrollToBottom() {
+      const section = document.getElementById('chat-section');
+      section.scrollTop = section.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ── Quick-action chips ─────────────────────────────────────────────────────
+    document.querySelectorAll('.quick-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('chat-input').value = btn.dataset.text || btn.textContent.trim();
+        document.getElementById('chat-input').focus();
+      });
+    });
+
+    // Enter key to send (Shift+Enter for newline)
+    document.getElementById('chat-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+
+</html>
