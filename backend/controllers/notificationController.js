@@ -14,10 +14,11 @@ const getNotifications = async (req, res, next) => {
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
-    const notifications = await Notification.find(query)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit));
+    const notifications = await Notification.find(query, {
+      sort: { createdAt: -1 },
+      limit: parseInt(limit),
+      skip: skip
+    });
 
     const unreadCount = await Notification.countDocuments({
       recipientId: req.user._id,
