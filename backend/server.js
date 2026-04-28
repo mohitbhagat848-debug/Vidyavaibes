@@ -53,12 +53,19 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function(origin, callback) {
-      // Allow requests with no origin (file://, mobile, curl, Postman)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1) {
+      
+      // Clean origin (remove trailing slash)
+      const cleanOrigin = origin.replace(/\/$/, '');
+      
+      // Clean allowed list
+      const normalizedAllowed = allowedOrigins.map(o => o ? o.replace(/\/$/, '') : o);
+
+      if (normalizedAllowed.indexOf(cleanOrigin) !== -1 || 
+          cleanOrigin.endsWith('.vercel.app')) { // Allow all Vercel previews
         callback(null, true);
       } else {
-        console.warn('CORS blocked origin:', origin);
+        console.warn('CORS blocked origin:', cleanOrigin);
         callback(new Error('Not allowed by CORS'));
       }
     },
