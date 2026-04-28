@@ -74,23 +74,21 @@ class SupabaseModel {
     return new SupabaseQueryBuilder(this.table, query, options, this);
   }
 
-  async findOne(query) {
-    return this.find(query).limit(1).then(results => results.length > 0 ? results[0] : null);
+  findOne(query) {
+    const builder = this.find(query).limit(1);
+    // Override the then method of this specific builder instance to return only the first record
+    const originalThen = builder.then.bind(builder);
+    builder.then = (resolve, reject) => {
+      return originalThen(
+        results => resolve(Array.isArray(results) && results.length > 0 ? results[0] : null),
+        reject
+      );
+    };
+    return builder;
   }
 
-  async findById(id) {
-    const { data, error } = await supabase
-      .from(this.table)
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if (error && error.code !== 'PGRST116') {
-      const err = new Error(`[Supabase Error] ${error.message}`);
-      err.code = error.code;
-      throw err;
-    }
-    return this._wrap(data);
+  findById(id) {
+    return this.findOne({ id });
   }
 
   async findByIdAndUpdate(id, data, options = {}) {

@@ -41,7 +41,7 @@ class User extends SupabaseModel {
   /**
    * Same as findOne in base class
    */
-  async findOne(query) {
+  findOne(query) {
     return super.findOne(query);
   }
 }
