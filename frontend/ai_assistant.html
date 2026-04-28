@@ -247,7 +247,7 @@
   <script src="js/profile.js"></script>
   <script>
     // ── Constants ──────────────────────────────────────────────────────────────
-    const BACKEND_URL = 'http://127.0.0.1:5000';
+    const BACKEND_URL = window.AMEP_CONFIG.API_URL.replace('/api', '');
 
     // Read auth token (profile.js already redirected if missing, but double-check)
     const _token = localStorage.getItem('amep_token');

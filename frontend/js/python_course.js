@@ -4,7 +4,7 @@
  */
 // ── Progress Helpers ──────────────────────────────────────────────────────────
 const PROGRESS_KEY = 'amep_python_progress';
-const API_BASE = (window.AMEP_CONFIG?.API_URL) || 'http://127.0.0.1:5000/api';
+const API_BASE = window.AMEP_CONFIG.API_URL;
 
 function getCourseProgress() {
   try {

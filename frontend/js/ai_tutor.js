@@ -170,7 +170,7 @@
         try {
             const token = localStorage.getItem('amep_token') || 'test-mode';
             const context = "The user is on the " + document.title + " page. Provide helpful assistance related to their query without giving away absolute solutions if they are testing themselves.";
-            const res = await fetch('http://127.0.0.1:5000/api/ai/ask', {
+            const res = await fetch(`${window.AMEP_CONFIG.API_URL}/ai/ask`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
                 body: JSON.stringify({ question: text, context })

@@ -248,7 +248,7 @@
       btn.textContent = 'Logging in...';
 
       try {
-        const res = await fetch('http://127.0.0.1:5000/api/auth/login', {
+        const res = await fetch(`${window.AMEP_CONFIG.API_URL}/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -292,7 +292,7 @@
       document.getElementById('login-error').classList.add('hidden');
 
       try {
-        const res = await fetch('http://127.0.0.1:5000/api/auth/google', {
+        const res = await fetch(`${window.AMEP_CONFIG.API_URL}/auth/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })

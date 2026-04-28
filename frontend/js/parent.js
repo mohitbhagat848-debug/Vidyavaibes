@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  const API_BASE = 'http://127.0.0.1:5000/api';
+  const API_BASE = window.AMEP_CONFIG.API_URL;
 
   // ── State ────────────────────────────────────────────────────────────────────
   let childrenData = [];   // all linked children with overview
