@@ -5,7 +5,7 @@ const isLocalhost = window.location.hostname === 'localhost' || window.location.
 const CONFIG = {
   // IMPORTANT: Once you deploy your backend to Render, replace the YOUR_RENDER_URL placeholder
   // with your actual Render URL (e.g., 'https://infinity-backend.onrender.com/api')
-  API_URL: isLocalhost ? 'http://127.0.0.1:5000/api' : 'https://YOUR_RENDER_URL.onrender.com/api',
+  API_URL: isLocalhost ? 'http://127.0.0.1:5000/api' : 'https://infinity-backend.onrender.com/api',
   
   // Supabase Configuration
   SUPABASE_URL: 'https://ygdjkjvysvlofvikbaoc.supabase.co',
