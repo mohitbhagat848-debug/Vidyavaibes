@@ -9,7 +9,8 @@ const generateToken = require('../utils/generateToken');
  */
 const signup = async (req, res, next) => {
   try {
-    const { name, email, password, role, grade, parentEmail } = req.body;
+    const { name, password, role, grade, parentEmail } = req.body;
+    const email = req.body.email ? req.body.email.toLowerCase().trim() : '';
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -66,11 +67,15 @@ const signup = async (req, res, next) => {
  */
 const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const email = req.body.email ? req.body.email.toLowerCase().trim() : '';
 
-    // Find user (In Firestore helper, findOne returns the whole doc including password)
-    const user = await User.findOne({ email });
+    // Find user (Explicitly select * to ensure password hash is returned)
+    const user = await User.findOne({ email }).select('*');
+    console.log(`[Login] Attempt for: ${email} | Found: ${!!user}`);
+    
     if (!user) {
+      console.log(`[Login] User not found: ${email}`);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password.',
@@ -79,6 +84,8 @@ const login = async (req, res, next) => {
 
     // Check password using static helper
     const isMatch = await User.matchPassword(password, user.password);
+    console.log(`[Login] Password match for ${email}: ${isMatch}`);
+    
     if (!isMatch) {
       return res.status(401).json({
         success: false,

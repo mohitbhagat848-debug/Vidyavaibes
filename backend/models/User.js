@@ -33,6 +33,8 @@ class User extends SupabaseModel {
    * Instance helper for bcrypt comparison
    */
   async matchPassword(enteredPassword, storedHash) {
+    console.log('[Auth Debug] Comparing passwords...');
+    // console.log('[Auth Debug] Hash from DB:', storedHash); // Unsafe to log full hash, but useful for debugging if needed
     return await bcrypt.compare(enteredPassword, storedHash);
   }
 

@@ -11,6 +11,7 @@ class SupabaseModel {
   _wrap(data) {
     if (!data) return null;
     if (Array.isArray(data)) return data.map(d => this._wrap(d));
+    console.log(`[Model Debug] Wrapping data for ${this.table}. Keys: ${Object.keys(data).join(', ')}`);
     return new Document(data, this);
   }
 
