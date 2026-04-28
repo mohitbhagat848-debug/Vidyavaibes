@@ -32,7 +32,11 @@ class SupabaseModel {
       .select()
       .single();
 
-    if (error) throw new Error(`[Supabase Error] ${error.message}`);
+    if (error) {
+      const err = new Error(`[Supabase Error] ${error.message}`);
+      err.code = error.code;
+      throw err;
+    }
     return this._wrap(inserted);
   }
 
@@ -51,7 +55,11 @@ class SupabaseModel {
       .eq('id', id)
       .single();
 
-    if (error && error.code !== 'PGRST116') throw new Error(`[Supabase Error] ${error.message}`);
+    if (error && error.code !== 'PGRST116') {
+      const err = new Error(`[Supabase Error] ${error.message}`);
+      err.code = error.code;
+      throw err;
+    }
     return this._wrap(data);
   }
 
@@ -64,7 +72,11 @@ class SupabaseModel {
       .select()
       .single();
 
-    if (error) throw new Error(`[Supabase Error] ${error.message}`);
+    if (error) {
+      const err = new Error(`[Supabase Error] ${error.message}`);
+      err.code = error.code;
+      throw err;
+    }
     return this._wrap(updated);
   }
 
@@ -159,7 +171,11 @@ class SupabaseQueryBuilder {
         q = q.range(this.options.skip, 10000);
       }
       const { data, error } = await q;
-      if (error) throw new Error(`[Supabase Error] ${error.message}`);
+      if (error) {
+        const err = new Error(`[Supabase Error] ${error.message}`);
+        err.code = error.code;
+        throw err;
+      }
       resolve(this.model._wrap(data || []));
     } catch (err) {
       if (reject) reject(err);

@@ -13,10 +13,15 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // Mongoose: Duplicate key (unique constraint)
-  if (err.code === 11000) {
+  if (err.code === 11000 || err.code === '23505') {
     statusCode = 400;
-    const field = Object.keys(err.keyValue)[0];
-    message = `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`;
+    message = 'An account with this email already exists.';
+    
+    // Attempt to extract field name from Postgres error message if possible
+    if (err.message.includes('unique constraint')) {
+        if (err.message.includes('email')) message = 'This email is already registered. Please login instead.';
+        else if (err.message.includes('username')) message = 'This username is already taken.';
+    }
   }
 
   // Mongoose: Validation error
