@@ -282,7 +282,7 @@
               id="opt-${qi}-${oi}"
               data-qi="${qi}" data-oi="${oi}"
               ${prog ? 'disabled' : ''}>
-              <span class="font-bold text-slate-400 mr-2">${String.fromCharCode(65 + oi)}.</span> ${opt}
+              <span class="font-bold text-slate-400 mr-2">${String.fromCharCode(65 + oi)}.</span> ${escapeHtml(opt)}
             </button>
           `).join('')}
         </div>
@@ -422,6 +422,15 @@
       </div>
     `;
     document.body.appendChild(banner);
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
   // ── Init ────────────────────────────────────────────────────────────────────
