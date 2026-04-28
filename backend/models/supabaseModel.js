@@ -14,21 +14,50 @@ class SupabaseModel {
     return new Document(data, this);
   }
 
-  _processUpdateData(data) {
+  _processUpdateData(data, existing = {}) {
     let finalUpdate = {};
-    if (!Object.keys(data).some(k => k.startsWith('$'))) return data;
+    const hasOperator = Object.keys(data).some(k => k.startsWith('$'));
+    if (!hasOperator) return data;
 
+    // 1. Handle regular fields and $set
     if (data.$set) finalUpdate = { ...finalUpdate, ...data.$set };
     for (const key in data) {
       if (!key.startsWith('$')) finalUpdate[key] = data[key];
     }
+
+    // 2. Handle $inc (increment)
+    if (data.$inc) {
+      for (const key in data.$inc) {
+        const currentVal = existing[key] || 0;
+        finalUpdate[key] = currentVal + data.$inc[key];
+      }
+    }
+
+    // 3. Handle $setOnInsert (only if no existing record)
+    // Note: This is handled in findOneAndUpdate upsert logic
+    
     return finalUpdate;
   }
 
   async create(data) {
+    // Strip $setOnInsert if present during a straight create
+    let finalData = { ...data };
+    if (data.$setOnInsert) {
+      finalData = { ...finalData, ...data.$setOnInsert };
+      delete finalData.$setOnInsert;
+    }
+    if (finalData.$set) {
+      finalData = { ...finalData, ...finalData.$set };
+      delete finalData.$set;
+    }
+    // Remove other operators for create
+    delete finalData.$inc;
+    delete finalData.$push;
+    delete finalData.$addToSet;
+
     const { data: inserted, error } = await supabase
       .from(this.table)
-      .insert([data])
+      .insert([finalData])
       .select()
       .single();
 
@@ -64,7 +93,9 @@ class SupabaseModel {
   }
 
   async findByIdAndUpdate(id, data, options = {}) {
-    const updateData = this._processUpdateData(data);
+    const existing = await this.findById(id);
+    const updateData = this._processUpdateData(data, existing || {});
+    
     const { data: updated, error } = await supabase
       .from(this.table)
       .update(updateData)
@@ -85,7 +116,10 @@ class SupabaseModel {
     if (existing) {
       return this.findByIdAndUpdate(existing._id, data, options);
     } else if (options.upsert) {
-      const createData = { ...query, ...this._processUpdateData(data) };
+      // For upsert: combine query, $setOnInsert, and processed update data
+      let createData = { ...query };
+      if (data.$setOnInsert) createData = { ...createData, ...data.$setOnInsert };
+      createData = { ...createData, ...this._processUpdateData(data, {}) };
       return this.create(createData);
     }
     return null;
@@ -105,6 +139,27 @@ class SupabaseModel {
       const { error } = await supabase.from(this.table).delete().eq('id', existing._id);
       if (error) throw new Error(`[Supabase Error] ${error.message}`);
       return existing;
+  }
+
+  async addToSet(id, field, value) {
+    const existing = await this.findById(id);
+    if (!existing) return null;
+    
+    let array = Array.isArray(existing[field]) ? existing[field] : [];
+    if (!array.includes(value)) {
+      array.push(value);
+      return this.findByIdAndUpdate(id, { [field]: array });
+    }
+    return existing;
+  }
+
+  async push(id, field, value) {
+    const existing = await this.findById(id);
+    if (!existing) return null;
+    
+    let array = Array.isArray(existing[field]) ? existing[field] : [];
+    array.push(value);
+    return this.findByIdAndUpdate(id, { [field]: array });
   }
 }
 
@@ -141,11 +196,18 @@ class SupabaseQueryBuilder {
   sort(sortObj) { this.options.sort = sortObj; return this; }
   limit(num) { this.options.limit = num; return this; }
   skip(num) { this.options.skip = num; return this; }
+  select(fields) {
+    if (typeof fields === 'string') {
+      this.options.select = fields.split(' ').join(',');
+    }
+    return this;
+  }
   populate(field) { return this; } // Placeholder
 
   async then(resolve, reject) {
     try {
-      let q = supabase.from(this.table).select('*');
+      const selectFields = this.options.select || '*';
+      let q = supabase.from(this.table).select(selectFields);
       for (const key in this.query) {
         const val = this.query[key];
         if (typeof val === 'object' && val !== null) {
