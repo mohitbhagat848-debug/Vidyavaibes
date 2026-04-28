@@ -17,26 +17,63 @@ class SupabaseModel {
 
   _processUpdateData(data, existing = {}) {
     let finalUpdate = {};
-    const hasOperator = Object.keys(data).some(k => k.startsWith('$'));
-    if (!hasOperator) return data;
+    
+    // Helper to set nested value
+    const setNestedValue = (obj, path, value) => {
+      const parts = path.split('.');
+      let current = obj;
+      for (let i = 0; i < parts.length - 1; i++) {
+        if (!current[parts[i]]) current[parts[i]] = {};
+        current[parts[i]] = { ...current[parts[i]] }; // Clone to avoid mutation issues
+        current = current[parts[i]];
+      }
+      current[parts[parts.length - 1]] = value;
+    };
 
     // 1. Handle regular fields and $set
-    if (data.$set) finalUpdate = { ...finalUpdate, ...data.$set };
-    for (const key in data) {
-      if (!key.startsWith('$')) finalUpdate[key] = data[key];
-    }
+    const processFields = (fields) => {
+      for (const key in fields) {
+        if (key.startsWith('$')) continue;
+        if (key.includes('.')) {
+          // If we have existing data, we can merge
+          const [mainKey] = key.split('.');
+          if (!finalUpdate[mainKey] && existing[mainKey]) {
+            finalUpdate[mainKey] = JSON.parse(JSON.stringify(existing[mainKey]));
+          } else if (!finalUpdate[mainKey]) {
+            finalUpdate[mainKey] = {};
+          }
+          setNestedValue(finalUpdate, key, fields[key]);
+        } else {
+          finalUpdate[key] = fields[key];
+        }
+      }
+    };
+
+    if (data.$set) processFields(data.$set);
+    processFields(data);
 
     // 2. Handle $inc (increment)
     if (data.$inc) {
       for (const key in data.$inc) {
-        const currentVal = existing[key] || 0;
-        finalUpdate[key] = currentVal + data.$inc[key];
+        const currentVal = (key.includes('.') ? 
+          key.split('.').reduce((o, i) => (o ? o[i] : 0), existing) : 
+          existing[key]) || 0;
+        
+        const newVal = currentVal + data.$inc[key];
+        if (key.includes('.')) {
+          const [mainKey] = key.split('.');
+          if (!finalUpdate[mainKey] && existing[mainKey]) {
+            finalUpdate[mainKey] = JSON.parse(JSON.stringify(existing[mainKey]));
+          } else if (!finalUpdate[mainKey]) {
+            finalUpdate[mainKey] = {};
+          }
+          setNestedValue(finalUpdate, key, newVal);
+        } else {
+          finalUpdate[key] = newVal;
+        }
       }
     }
 
-    // 3. Handle $setOnInsert (only if no existing record)
-    // Note: This is handled in findOneAndUpdate upsert logic
-    
     return finalUpdate;
   }
 
@@ -94,7 +131,7 @@ class SupabaseModel {
   async findByIdAndUpdate(id, data, options = {}) {
     const existing = await this.findById(id);
     const updateData = this._processUpdateData(data, existing || {});
-    
+
     const { data: updated, error } = await supabase
       .from(this.table)
       .update(updateData)
@@ -126,24 +163,70 @@ class SupabaseModel {
 
   async countDocuments(query = {}) {
     let q = supabase.from(this.table).select('*', { count: 'exact', head: true });
-    for (const key in query) q = q.eq(key, query[key]);
+    for (const key in query) {
+      const column = key === '_id' ? 'id' : key;
+      const val = query[key];
+      if (typeof val === 'object' && val !== null) {
+        if (val.$in) q = q.in(column, val.$in);
+        else if (val.$gt) q = q.gt(column, val.$gt);
+        else if (val.$lt) q = q.lt(column, val.$lt);
+      } else {
+        q = q.eq(column, val);
+      }
+    }
     const { count, error } = await q;
     if (error) throw new Error(`[Supabase Error] ${error.message}`);
     return count;
   }
 
   async deleteOne(query) {
-      const existing = await this.findOne(query);
-      if (!existing) return null;
-      const { error } = await supabase.from(this.table).delete().eq('id', existing._id);
-      if (error) throw new Error(`[Supabase Error] ${error.message}`);
-      return existing;
+    const existing = await this.findOne(query);
+    if (!existing) return null;
+    const id = existing._id;
+    const { error } = await supabase.from(this.table).delete().eq('id', id);
+    if (error) throw new Error(`[Supabase Error] ${error.message}`);
+    return existing;
+  }
+
+  async findOneAndDelete(query) {
+    return this.deleteOne(query);
+  }
+
+  async findByIdAndDelete(id) {
+    const existing = await this.findById(id);
+    if (!existing) return null;
+    const { error } = await supabase.from(this.table).delete().eq('id', id);
+    if (error) throw new Error(`[Supabase Error] ${error.message}`);
+    return existing;
+  }
+
+  async updateMany(query, data, options = {}) {
+    const updateData = this._processUpdateData(data);
+    let q = supabase.from(this.table).update(updateData);
+    
+    for (const key in query) {
+      const column = key === '_id' ? 'id' : key;
+      const val = query[key];
+      if (typeof val === 'object' && val !== null) {
+        if (val.$in) q = q.in(column, val.$in);
+        else if (val.$gt) q = q.gt(column, val.$gt);
+        else if (val.$lt) q = q.lt(column, val.$lt);
+        else if (val.$gte) q = q.gte(column, val.$gte);
+        else if (val.$lte) q = q.lte(column, val.$lte);
+      } else {
+        q = q.eq(column, val);
+      }
+    }
+
+    const { data: updated, error, count } = await q.select();
+    if (error) throw new Error(`[Supabase Error] ${error.message}`);
+    return { modifiedCount: updated ? updated.length : 0 };
   }
 
   async addToSet(id, field, value) {
     const existing = await this.findById(id);
     if (!existing) return null;
-    
+
     let array = Array.isArray(existing[field]) ? existing[field] : [];
     if (!array.includes(value)) {
       array.push(value);
@@ -155,7 +238,7 @@ class SupabaseModel {
   async push(id, field, value) {
     const existing = await this.findById(id);
     if (!existing) return null;
-    
+
     let array = Array.isArray(existing[field]) ? existing[field] : [];
     array.push(value);
     return this.findByIdAndUpdate(id, { [field]: array });
@@ -207,16 +290,23 @@ class SupabaseQueryBuilder {
     try {
       const selectFields = this.options.select || '*';
       let q = supabase.from(this.table).select(selectFields);
+      console.log(`[Supabase Debug] Querying ${this.table} | select: ${selectFields} | query:`, JSON.stringify(this.query));
+      
       for (const key in this.query) {
+        const column = key === '_id' ? 'id' : key;
         const val = this.query[key];
-        if (typeof val === 'object' && val !== null) {
-          if (val.$in) q = q.in(key, val.$in);
-          else if (val.$gt) q = q.gt(key, val.$gt);
-          else if (val.$lt) q = q.lt(key, val.$lt);
-          else if (val.$gte) q = q.gte(key, val.$gte);
-          else if (val.$lte) q = q.lte(key, val.$lte);
+        
+        if (column === 'email' && typeof val === 'string') {
+          // Use ilike for case-insensitive email matching
+          q = q.ilike(column, val);
+        } else if (typeof val === 'object' && val !== null) {
+          if (val.$in) q = q.in(column, val.$in);
+          else if (val.$gt) q = q.gt(column, val.$gt);
+          else if (val.$lt) q = q.lt(column, val.$lt);
+          else if (val.$gte) q = q.gte(column, val.$gte);
+          else if (val.$lte) q = q.lte(column, val.$lte);
         } else {
-          q = q.eq(key, val);
+          q = q.eq(column, val);
         }
       }
       if (this.options.sort) {

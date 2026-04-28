@@ -72,21 +72,24 @@ const login = async (req, res, next) => {
 
     // Find user (Explicitly select * to ensure password hash is returned)
     const user = await User.findOne({ email }).select('*');
-    console.log(`[Login] Attempt for: ${email} | Found: ${!!user}`);
+    console.log(`[Login Debug] email: ${email} | found: ${!!user}`);
     
     if (!user) {
-      console.log(`[Login] User not found: ${email}`);
+      console.warn(`[Login Warning] User not found: ${email}`);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password.',
       });
     }
 
+    console.log(`[Login Debug] User role: ${user.role} | user.id: ${user._id}`);
+
     // Check password using static helper
     const isMatch = await User.matchPassword(password, user.password);
-    console.log(`[Login] Password match for ${email}: ${isMatch}`);
+    console.log(`[Login Debug] Password match: ${isMatch}`);
     
     if (!isMatch) {
+      console.warn(`[Login Warning] Password mismatch for: ${email}`);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password.',
